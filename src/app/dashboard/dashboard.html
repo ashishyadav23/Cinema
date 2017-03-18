@@ -1,0 +1,18 @@
+<div layout="column" style="margin-top:20px;">
+    <md-content layout-padding>
+        <md-grid-list md-cols-gt-md="12" md-cols="3" md-cols-md="8" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter-gt-md="16px"
+            md-gutter-md="8px" md-gutter="4px" style="margin:5px;">
+            <md-grid-tile ng-repeat="movie in vm.seeAllMovieList" style="margin:5px;">
+                <md-card>
+                    <img ng-src="https://image.tmdb.org/t/p/w640/{{movie.poster_path}}" class="md-card-image md-avatar" aria-label="{{movie.original_title}}"
+                        alt="{{movie.original_title}}">
+                    <md-card-content>
+                        <span>{{movie.original_title}}</span> (<span flex="10">{{movie.vote_average}}</span>)
+                    </md-card-content>
+
+                </md-card>
+            </md-grid-tile>
+        </md-grid-list>
+    </md-content>
+
+</div>

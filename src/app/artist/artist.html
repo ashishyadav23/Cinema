@@ -1,0 +1,42 @@
+<md-card>
+    <div class="background">
+        <div flex layout="row">
+            <div flex="20"></div>
+            <img flex="60" style="width:100%;height:250px;" ng-src="https://image.tmdb.org/t/p/w640/{{vm.selectedArtist.profile_path}}"
+                class="md-card-image">
+            <div flex="20"></div>
+        </div>
+    </div>
+    <md-card-content>
+        <div layout="column">
+            <div>{{vm.selectedArtist.name}}</div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </md-card-content>
+</md-card>
+
+
+
+
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">movies</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <cinema-Swiper data="vm.artistMovies" events="vm.artistMoviesSwiper" swiper-click="vm.openMovieWiki(data);"> </cinema-Swiper>
+    </md-card-content>
+</md-card>
+
+<style>
+    .background {
+        width: 100%;
+        height: auto;
+        opacity: 0.6;
+        background-image: url('https://image.tmdb.org/t/p/w640/{{vm.selectedArtist.profile_path}}');
+        background-repeat: no-repeat;
+    }
+</style>

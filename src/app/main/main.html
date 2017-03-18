@@ -1,0 +1,106 @@
+<div ng-cloak>
+  <md-content>
+    <md-tabs md-dynamic-height="true" md-border-bottom="true" md-stretch-tabs="always">
+      <md-tab label="Movies" md-on-select="vm.getDataOntype(0)">
+        <md-content class="md-padding">
+          <md-card>
+            <md-card-title flex>
+              <md-card-title-text>
+                <span class="md-headline">Upcoming movies</span>
+              </md-card-title-text>
+              <div ng-click="vm.openSeeAll(vm.upComingMovies)" style="text-align:right;">
+                <span>See All</span>
+              </div>
+            </md-card-title>
+            <md-card-content>
+              <cinema-Swiper data="vm.upComingMovies" events="vm.upComingMovieSwiper" swiper-click="vm.openMovieWiki(data);"> </cinema-Swiper>
+            </md-card-content>
+          </md-card>
+
+          <md-card>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Nowplaying movies</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <cinema-Swiper data="vm.nowPlayingMovies" events="vm.nowPlayingMoviesSwiper" swiper-click="vm.openMovieWiki(data);"> </cinema-Swiper>
+            </md-card-content>
+          </md-card>
+
+          <md-card>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Toprated movies</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <cinema-Swiper data="vm.topRatedMovies" events="vm.topRatedMoviesSwiper" swiper-click="vm.openMovieWiki(data);"> </cinema-Swiper>
+            </md-card-content>
+          </md-card>
+
+          <md-card>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Popular movies</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <cinema-Swiper data="vm.popularMovies" events="vm.popularMoviesSwiper" swiper-click="vm.openMovieWiki(data);"> </cinema-Swiper>
+            </md-card-content>
+          </md-card>
+
+        </md-content>
+      </md-tab>
+      <md-tab label="Tv Shows" md-on-select="vm.getDataOntype(1)">
+        <md-content class="md-padding">
+          <md-card>
+            <md-card-title flex>
+              <md-card-title-text>
+                <span class="md-headline">Popular shows</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <cinema-tv data="vm.popularTvShows" events="vm.popularShowsSwiper" swiper-click="vm.opentvShowsWiki(data);"> </cinema-tv>
+            </md-card-content>
+          </md-card>
+
+          <md-card>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Toprated shows</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <cinema-tv data="vm.topRatedShows" events="vm.topRatedShowsSwiper" swiper-click="vm.opentvShowsWiki(data);"> </cinema-tv>
+            </md-card-content>
+          </md-card>
+
+          <md-card>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">On the air</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <cinema-tv data="vm.ontheAirShows" events="vm.ontheAirShowsSwiper" swiper-click="vm.opentvShowsWiki(data);"> </cinema-tv>
+            </md-card-content>
+          </md-card>
+
+          <md-card>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Arriving today</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <cinema-tv data="vm.arrivingShows" events="vm.arrivingShowsSwiper" swiper-click="vm.opentvShowsWiki(data);"> </cinema-tv>
+            </md-card-content>
+          </md-card>
+
+
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+</div>
