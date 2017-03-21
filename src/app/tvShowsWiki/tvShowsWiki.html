@@ -36,8 +36,7 @@
                     <div layout="column">
                         <md-card>
                             <div ng-if="vm.selectedTvVideos.length>0">
-                                <ks-swiper-container swiper="swiper" on-ready="vm.onReadySwiper(swiper)" initial-slide="0" loop="false" show-nav-buttons="true"
-                                    slides-per-view="1" space-between="0" pagination-clickable="false">
+                                <ks-swiper-container swiper="swiper" on-ready="vm.onReadySwiper(swiper)" initial-slide="0" loop="false" show-nav-buttons="true" slides-per-view="1" space-between="0" pagination-clickable="false">
                                     <ks-swiper-slide class="swiper-slide" ng-repeat="video in vm.selectedTvVideos" ng-click="vm.openArtistWiki(cast)">
                                         <div class="video-container">
                                             <iframe src="{{video}}" frameborder="0" allowfullscreen></iframe>
@@ -47,8 +46,7 @@
                             </div>
 
 
-                            <img ng-if="vm.selectedTvVideos.length<=0" style="width:100&;height:200px;" class="md-card-image" ng-src="https://image.tmdb.org/t/p/w640/{{vm.selectedTv.poster_path}}"
-                                class="md-avatar" aria-label="{{vm.selectedTv.original_name}}" alt="{{vm.selectedTv.original_name}}"
+                            <img ng-if="vm.selectedTvVideos.length<=0" style="width:100%;height:200px;" class="md-card-image" ng-src="https://image.tmdb.org/t/p/w640/{{vm.selectedTv.poster_path}}" class="md-avatar" aria-label="{{vm.selectedTv.original_name}}" alt="{{vm.selectedTv.original_name}}"
                             />
                         </md-card>
 
@@ -62,7 +60,80 @@
 
         </md-card>
 
-        <md-card ng-if="vm.selectedTv!=''">
+        <md-content>
+            <md-tabs md-dynamic-height="true" md-border-bottom="true" md-stretch-tabs="always">
+                <md-tab label="Synopsis">
+                    <md-content class="md-padding" id="bio">
+                        <div layout="column">
+                            <span flex style="text-align: justify">{{vm.selectedTv.overview}}</span>
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Details">
+                    <md-content class="md-padding">
+                        <md-card>
+                            <md-card-content>
+                                <div layout="row" flex ng-if="vm.selectedTv.vote_average">
+                                    <span flex="30">Rating</span>
+                                    <div flex="70" style="text-align:center;">
+                                        <i flex="10" style="font-size:20px; color:orange;" class="material-icons">star_rate</i>
+                                        <span flex="60" style="text-align: center">{{vm.selectedTv.vote_average}}/10</span>
+                                    </div>
+                                </div>
+                                <md-divider></md-divider>
+                                <div layout="row" flex>
+                                    <span flex="30">Release date</span>
+                                    <span flex="70" style="text-align:center;">{{vm.selectedTv.release_date}}</span>
+                                </div>
+                                <div layout="row" flex>
+                                    <span flex="30">Running time</span>
+                                    <span flex="70" style="text-align:center;">{{vm.selectedTv.runtime}}</span>
+                                </div>
+                                <md-divider></md-divider>
+                                <div layout="row" flex>
+                                    <span flex="30">Directed by</span>
+                                    <span flex="70" style="text-align:center;">{{vm.selectedTv.release_date}}</span>
+                                </div>
+                                <md-divider></md-divider>
+                                <div layout="row" flex>
+                                    <span flex="30">Genres</span>
+                                    <div flex="70" style="text-align:center;" ng-repeat=" genre in vm.movieDetails.genres">
+                                        <span flex="60" style="text-align: justify">{{genre.name}}</span>
+                                        <span flex="10" ng-if="!$last">,</span>
+                                    </div>
+                                </div>
+                            </md-card-content>
+                        </md-card>
+                    </md-content>
+                </md-tab>
+                <!--<md-card-content>
+            <div layout="column">
+                <div layout="row" style="font-size: 0.9rem" ng-if="vm.artistBio.biography">
+                    <span flex="30">Biography</span>
+                    <span flex="10"></span>
+                    <span flex="60">{{vm.artistBio.biography}}</span>
+                </div>
+                <md-divider></md-divider>
+                <div layout="row" flex>
+                    <span flex="30">DOB</span>
+                    <span flex="70" style="text-align: center;">{{vm.artistBio.birthday}}</span>
+                </div>
+                <md-divider></md-divider>
+                <div layout="row" flex>
+                    <span flex="30">Place Of Birth</span>
+                    <span flex="70" style="text-align: center;">{{vm.artistBio.place_of_birth}} </span>
+                </div>
+                <md-divider></md-divider>
+                <div layout="row" flex ng-if="vm.artistBio.gender">
+                    <span flex="30">Gender</span>
+                    <span flex="70" style="text-align:center;">{{vm.artistBio.gender == 1 ? 'Female' : 'Male'}}</span>
+                </div>
+            </div>
+        </md-card-content>-->
+            </md-tabs>
+        </md-content>
+
+        <!--<md-card ng-if="vm.selectedTv!=''">
             <md-card-header>
                 <md-card-header-text>
                     <div flex="50">
@@ -114,7 +185,7 @@
 
             </md-card-content>
 
-        </md-card>
+        </md-card>-->
         <md-card ng-if="vm.similarTvList.length>0">
             <md-card-header>
                 <md-card-header-text>
@@ -137,13 +208,11 @@
             </md-card-header>
 
             <md-card-content>
-                <ks-swiper-container swiper="swiper" on-ready="vm.onReadySwiper(swiper)" initial-slide="0" loop="false" show-nav-buttons="false"
-                    slides-per-view="2" space-between="5" pagination-clickable="false">
+                <ks-swiper-container swiper="swiper" on-ready="vm.onReadySwiper(swiper)" initial-slide="0" loop="false" show-nav-buttons="false" slides-per-view="2" space-between="5" pagination-clickable="false">
                     <ks-swiper-slide class="swiper-slide" ng-repeat="cast in vm.castList" ng-click="vm.openArtistWiki(cast)">
                         <div layout="column">
                             <div>
-                                <img style="width:100%;height:200px;" class="md-card-image" ng-src="https://image.tmdb.org/t/p/w640/{{cast.profile_path}}"
-                                    class="md-avatar" aria-label="{{cast.original_title}}" alt="{{cast.original_title}}" />
+                                <img style="width:100%;height:200px;" class="md-card-image" ng-src="https://image.tmdb.org/t/p/w640/{{cast.profile_path}}" class="md-avatar" aria-label="{{cast.original_title}}" alt="{{cast.original_title}}" />
 
                             </div>
                             <div style="text-align:center;">
