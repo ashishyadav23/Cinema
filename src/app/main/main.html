@@ -12,7 +12,9 @@
                 <span>See All</span>
               </div>
             </md-card-title>
+
             <md-card-content>
+              <div class="background" ng-if="vm.upComingMovies ==''"></div>
               <cinema-Swiper data="vm.upComingMovies" events="vm.upComingMovieSwiper" swiper-click="vm.openMovieWiki(data);"> </cinema-Swiper>
             </md-card-content>
           </md-card>

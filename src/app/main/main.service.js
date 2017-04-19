@@ -3,7 +3,7 @@
     angular.module('cinema')
         .service('mainService', mainService);
     /**@ngInjcet */
-    function mainService(tmdbMovie, tmdbTV) {
+    function mainService() {
         this.getTopRatedMovie = getTopRatedMovie;
         
         function getTopRatedMovie() {

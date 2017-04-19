@@ -3,12 +3,10 @@
 
   angular
     .module('cinema')
-
-
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController(tmdbMovie, tmdbTV, tmdbApiKey, CinemaService, $location, $rootScope) {
+  function MainController(tmdbMovie, tmdbTV, tmdbApiKey, CinemaService, TvShowService, $location, $rootScope) {
     var vm = this;
     tmdbMovie.setup(tmdbApiKey, true);
     var param = {
@@ -35,11 +33,41 @@
       vm.selectedType = "";
       vm.getDataOntype = getDataOntype;
       $rootScope.headerTitle = "Dashboard";
+      $rootScope.direction = 0;
       loadAllShowsData();
 
       loadAllMoviesData();
 
       initiliazeSwiper();
+
+      // if (window.cordova) {
+      var admobid = {};
+      if (/(android)/i.test(navigator.userAgent)) { // for android & amazon-fireos
+        admobid = {
+          banner: 'ca-app-pub-xxx/xxx', // or DFP format "/6253334/dfp_example_ad"
+          interstitial: 'ca-app-pub-xxx/yyy'
+        };
+        console.log(1);
+      } else if (/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
+        admobid = {
+          banner: 'ca-app-pub-xxx/zzz', // or DFP format "/6253334/dfp_example_ad"
+          interstitial: 'ca-app-pub-xxx/kkk'
+        };
+        console.log(2);
+      } else { // for windows phone
+        admobid = {
+          banner: 'ca-app-pub-xxx/zzz', // or DFP format "/6253334/dfp_example_ad"
+          interstitial: 'ca-app-pub-xxx/kkk'
+        };
+        console.log(3);
+      }
+
+      // if (AdMob) AdMob.createBanner({
+      //   adId: admobid.banner,
+      //   position: AdMob.AD_POSITION.TOP_CENTER,
+      //   autoShow: true
+      // });
+      // }
 
     }
 
@@ -134,7 +162,7 @@
     };
 
     vm.opentvShowsWiki = function (show) {
-      CinemaService.setSelectedTv(show);
+      TvShowService.setSelectedTv(show);
       $location.path('tvShowsWiki');
     };
 

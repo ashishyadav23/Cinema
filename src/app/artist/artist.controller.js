@@ -1,9 +1,9 @@
-(function() {
+(function () {
     'use Strict';
     angular.module('cinema')
         .controller('ArtistController', ArtistController);
     /** @ngInject */
-    function ArtistController(tmdbTV, CinemaService, $location, $rootScope, $scope, $sce, $filter, movieWikiService, tmdbMovie) {
+    function ArtistController(tmdbTV, CinemaService, $location, $rootScope, $sce, $filter, movieWikiService, tmdbMovie) {
         var vm = this;
         var param = {
             "language": "en-US",
@@ -22,9 +22,9 @@
             }
         }
 
-        vm.artistMoviesSwiper = function(swiper) {
+        vm.artistMoviesSwiper = function (swiper) {
             swiper.initObservers();
-            swiper.on('onReachEnd', function() {
+            swiper.on('onReachEnd', function () {
                 param.page++;
                 getmovies();
             });
@@ -50,7 +50,7 @@
                 });
         }
 
-        vm.calculateAge = function(birthday, deathday) {
+        vm.calculateAge = function (birthday, deathday) {
             var diffInYear = "";
             if ((angular.isString(birthday) && birthday != "")) {
                 var dob = new Date(birthday);
@@ -79,7 +79,7 @@
             }
         }
 
-        vm.openMovieWiki = function(movie) {
+        vm.openMovieWiki = function (movie) {
             CinemaService.setSelectedMovie(movie);
             $location.path('/movieWiki');
         }

@@ -1,15 +1,15 @@
-@import url(//fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);
+/*@import url(//fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);*/
 
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url(../../bower_components/material-design-iconfont/iconfont/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: url(../bower_components/material-design-iconfont/iconfont/MaterialIcons-Regular.eot); /* For IE6-8 */
   src: local('Material Icons'),
        local('MaterialIcons-Regular'),
-       url(../../bower_components/material-design-iconfont/iconfont/MaterialIcons-Regular.woff2) format('woff2'),
-       url(../../bower_components/material-design-iconfont/iconfont/MaterialIcons-Regular.woff) format('woff'),
-       url(../../bower_components/material-design-iconfont/iconfont/MaterialIcons-Regular.ttf) format('truetype');
+       url(../bower_components/material-design-iconfont/iconfont/MaterialIcons-Regular.woff2) format('woff2'),
+       url(../bower_components/material-design-iconfont/iconfont/MaterialIcons-Regular.woff) format('woff'),
+       url(../bower_components/material-design-iconfont/iconfont/MaterialIcons-Regular.ttf) format('truetype');
 }
 
 .material-icons {
@@ -39,6 +39,10 @@
 
 html {
   font-family: 'Roboto Slab', serif;
+}
+
+*{
+  outline: none !important;
 }
 
 [layout=row] {
@@ -91,4 +95,19 @@ section.jumbotron h1 {
 .md-headline{
       text-transform: uppercase !important;
 
+}
+.background {
+        width: 100%;
+    height: 6.5em;
+    background-image: url(../assets/images/default.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: inherit;
+    }
+.placeholder {
+    width: 100%;
+    height: 150px;
+    background-repeat: round;
+    background-size: contain;
+    background-image: url('../assets/images/cinemaPlaceholder.jpg');
 }

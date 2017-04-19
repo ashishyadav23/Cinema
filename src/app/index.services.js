@@ -40,17 +40,6 @@
             this.seeAllList = response;
         }
 
-        var selectedTv = "";
-        this.getSelectedTv = getSelectedTv;
-        this.setSelectedTv = setSelectedTv;
-        function getSelectedTv() {
-            return this.selectedTv;
-        }
-        function setSelectedTv(response) {
-            this.selectedTv = response;
-        }
-
-
     }
 
 
