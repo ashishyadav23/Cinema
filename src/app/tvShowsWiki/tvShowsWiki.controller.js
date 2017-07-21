@@ -1,28 +1,28 @@
 (function () {
     'use Strict';
     angular.module('cinema')
-        .controller('tvShowsWikiController', tvShowsWikiController);
+        .controller('TvShowsWikiController', TvShowsWikiController);
     /** @ngInject */
-    function tvShowsWikiController(tmdbTV, TvShowService, $location, $rootScope, $sce, $filter, $timeout) {
+    function TvShowsWikiController(tmdbTV, CinemaService, $location, $rootScope, $sce, $filter, $timeout, ArtistService) {
         var vm = this;
         init();
-        loadVm();
         var param = {
             "language": "en-US",
             "page": 1
         };
 
         function init() {
+            vm.openArtistWiki = openArtistWiki;
+            vm.similarTvSwiper = similarTvSwiper;
+            vm.renderHtml = renderHtml;
+            clearList();
             $rootScope.direction = 1;
             vm.onReadySwiper = function (swiper) {
                 swiper.initObservers();
             }
-
-            vm.selectedTv = TvShowService.getSelectedTv();
+            vm.selectedTv = CinemaService.collection.selectedTv;
             $rootScope.headerTitle = vm.selectedTv.original_name;
-
-            clearList();
-
+            loadVm();
         }
         function clearList() {
             vm.similarTvList = [];
@@ -98,7 +98,7 @@
                 });
         }
 
-        vm.similarTvSwiper = function (swiper) {
+        function similarTvSwiper(swiper) {
             swiper.initObservers();
             swiper.on('onReachEnd', function () {
                 param.page++;
@@ -112,29 +112,29 @@
                 clearList();
                 vm.selectedTv = data;
                 $rootScope.headerTitle = vm.selectedTv.original_name;
-                TvShowService.setSelectedTv(data);
+                CinemaService.collection.setSelectedTv(data);
                 loadTvShowsDetails();
             }, 100);
 
         }
 
-        vm.renderHtml = function (html_code) {
+        function renderHtml(html_code) {
             return $sce.trustAsHtml(html_code);
         };
 
         function getShowDetails(showName) {
             vm.showDetail = {};
             vm.seasonList = [];
-            TvShowService.getTvShowWikiFromMaze(showName).then(successCallback, errorCallback);
-            function successCallback(success) {
+            var promise = CinemaService.collection.getTvShowWikiFromMaze(showName);
+            promise.then(function (success) {
                 vm.showDetail = success.data;
                 if (vm.showDetail._embedded.episodes.length > 0) {
                     vm.seasonList = getSeasonsData(vm.showDetail._embedded.episodes);
                     console.log("VM.SESON", angular.toJson(vm.seasonList));
                 }
-            }
-            function errorCallback(error) {
-            }
+            }, function (error) {
+                console.log("data", error);
+            });
         }
 
         // _embedded.episodes
@@ -147,9 +147,6 @@
             seasons['id'] = '';
             angular.forEach(arrayList, function (value, key) {
                 if (dataExists(seasonList, value)) {
-                    // var position = seasonList.findIndex(function (x) {
-                    //     return x.id === value.season;
-                    // });
                     var position = getIndex(seasonList, value);
                     seasonList[position].episodesList.push(value);
 
@@ -179,6 +176,11 @@
             return seasonList.some(function (el) {
                 return el.id === item.season;
             })
+        }
+
+        function openArtistWiki(artist) {
+            ArtistService.setSelectedArtist(artist);
+            $location.path('/artist');
         }
 
     }

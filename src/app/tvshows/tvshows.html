@@ -1,0 +1,55 @@
+<md-content>
+    <div class="md-padding">
+        <md-nav-bar id="profile-btns" md-selected-nav-item="vm.currentNavItem" nav-bar-aria-label="navigation links" md-no-ink-bar="true">
+            <md-nav-item md-nav-click="vm.navbarClick(1)" name="movies">
+                Movies
+            </md-nav-item>
+            <md-nav-item md-nav-click="vm.navbarClick(3)" name="tvshows">
+                Tv shows
+            </md-nav-item>
+        </md-nav-bar>
+    </div>
+    <md-card>
+        <md-card-title flex>
+            <md-card-title-text>
+                <span class="md-headline">Popular shows</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            <cinema-tv data="vm.popularTvShows" events="vm.popularShowsSwiper" swiper-click="vm.opentvShowsWiki(data);"> </cinema-tv>
+        </md-card-content>
+    </md-card>
+
+    <md-card>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">Toprated shows</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            <cinema-tv data="vm.topRatedShows" events="vm.topRatedShowsSwiper" swiper-click="vm.opentvShowsWiki(data);"> </cinema-tv>
+        </md-card-content>
+    </md-card>
+
+    <md-card>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">On the air</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            <cinema-tv data="vm.ontheAirShows" events="vm.ontheAirShowsSwiper" swiper-click="vm.opentvShowsWiki(data);"> </cinema-tv>
+        </md-card-content>
+    </md-card>
+
+    <md-card>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">Arriving today</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            <cinema-tv data="vm.arrivingShows" events="vm.arrivingShowsSwiper" swiper-click="vm.opentvShowsWiki(data);"> </cinema-tv>
+        </md-card-content>
+    </md-card>
+</md-content>

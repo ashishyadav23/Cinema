@@ -3,7 +3,7 @@
     angular.module('cinema')
         .controller('ArtistController', ArtistController);
     /** @ngInject */
-    function ArtistController(tmdbTV, CinemaService, $location, $rootScope, $sce, $filter, movieWikiService, tmdbMovie) {
+    function ArtistController(tmdbTV, CinemaService, $location, $rootScope, $sce, $filter, ArtistService, tmdbMovie) {
         var vm = this;
         var param = {
             "language": "en-US",
@@ -15,7 +15,7 @@
         function init() {
             vm.artistBio = "";
             vm.artistMovies = [];
-            vm.selectedArtist = movieWikiService.getSelectedArtist();
+            vm.selectedArtist = ArtistService.getSelectedArtist();
 
             if (angular.isDefined(vm.selectedArtist)) {
                 loadData();
@@ -68,7 +68,7 @@
         }
 
         function getBio() {
-            movieWikiService.getArtistInfo(vm.selectedArtist.id).then(successCallback, errorCallback);
+            ArtistService.getArtistInfo(vm.selectedArtist.id).then(successCallback, errorCallback);
 
             function successCallback(successBio) {
                 vm.artistBio = successBio.data;

@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController(tmdbMovie, tmdbTV, tmdbApiKey, CinemaService, TvShowService, $location, $rootScope) {
+  function MainController(tmdbMovie, tmdbTV, tmdbApiKey, CinemaService, TvShowService, $location, $rootScope, $filter) {
     var vm = this;
     tmdbMovie.setup(tmdbApiKey, true);
     var param = {
@@ -18,6 +18,8 @@
     function init() {
 
       /**Movies  */
+      vm.currentNavItem = CinemaService.collection.currentNavItem != "" ? CinemaService.collection.currentNavItem : "movies";
+      vm.navbarClick = navbarClick;
       vm.popularMovies = [];
       vm.nowPlayingMovies = [];
       vm.upComingMovies = [];
@@ -31,10 +33,10 @@
       vm.topRatedShows = [];
 
       vm.selectedType = "";
-      vm.getDataOntype = getDataOntype;
+      // vm.getDataOntype = getDataOntype;
       $rootScope.headerTitle = "Dashboard";
       $rootScope.direction = 0;
-      loadAllShowsData();
+      // loadAllShowsData();
 
       loadAllMoviesData();
 
@@ -71,6 +73,7 @@
 
     }
 
+
     function loadAllMoviesData() {
       getUpComingMovies();
       getNowPlayingMovies();
@@ -85,6 +88,10 @@
       getTopRatedShows();
       getArrivingShows();
       getOnTheAirShows();
+    }
+
+    function navbarClick(pageId) {
+      CinemaService.collection.navbarClick(pageId);
     }
 
     function initiliazeSwiper() {
@@ -157,17 +164,12 @@
 
 
     vm.openMovieWiki = function (movie) {
-      CinemaService.setSelectedMovie(movie);
+      CinemaService.collection.setSelectedMovie(movie);
       $location.path('/movieWiki');
     };
 
-    vm.opentvShowsWiki = function (show) {
-      TvShowService.setSelectedTv(show);
-      $location.path('tvShowsWiki');
-    };
-
     vm.openSeeAll = function (dataList) {
-      CinemaService.setSeeAllList(dataList);
+      CinemaService.collection.setSeeAllMovies(dataList);
       $location.path('/dashboard');
 
     }
@@ -178,7 +180,7 @@
         function success(success) {
           if (success.hasOwnProperty('results')) {
             if (success.results.length > 0) {
-              vm.popularMovies = vm.popularMovies.concat(success.results);
+              vm.popularMovies = $filter('orderBy')(vm.popularMovies.concat(success.results), 'vote_average');
             }
           }
         }, function error() {
@@ -191,7 +193,7 @@
         function success(success) {
           if (success.hasOwnProperty('results')) {
             if (success.results.length > 0) {
-              vm.topRatedMovies = vm.topRatedMovies.concat(success.results);
+              vm.topRatedMovies = $filter('orderBy')(vm.topRatedMovies.concat(success.results), 'vote_average');
             }
           }
         }, function error() {
@@ -203,7 +205,7 @@
         function success(success) {
           if (success.hasOwnProperty('results')) {
             if (success.results.length > 0) {
-              vm.upComingMovies = vm.upComingMovies.concat(success.results);
+              vm.upComingMovies = $filter('orderBy')(vm.upComingMovies.concat(success.results), 'vote_average');
             }
           }
         }, function error() {
@@ -215,7 +217,8 @@
         function success(success) {
           if (success.hasOwnProperty('results')) {
             if (success.results.length > 0) {
-              vm.nowPlayingMovies = vm.nowPlayingMovies.concat(success.results);
+              vm.nowPlayingMovies = $filter('orderBy')(vm.nowPlayingMovies.concat(success.results), 'vote_average');
+
             }
           }
         }, function error() {
@@ -273,20 +276,6 @@
         }, function error() {
           console.log("error", angular.toJson(error));
         });
-    }
-
-    function getDataOntype(type) {
-      if (type == 0) {
-        vm.selectedType = "All Movies";
-        // loadAllMoviesData();
-
-
-      } else {
-        vm.selectedType = "All Tv Shows";
-        // loadAllShowsData();
-
-
-      }
     }
 
   }

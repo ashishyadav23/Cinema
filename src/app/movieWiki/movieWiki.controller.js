@@ -6,7 +6,7 @@
         .controller('MovieWikiController', MovieWikiController);
 
     /** @ngInject */
-    function MovieWikiController(tmdbMovie, CinemaService, $rootScope, $timeout, $filter, $sce, $location, movieWikiService) {
+    function MovieWikiController(tmdbMovie, CinemaService, $rootScope, $timeout, $filter, $sce, $location, ArtistService) {
         var vm = this;
         var param = {
             "language": "en-US",
@@ -16,7 +16,7 @@
 
         function init() {
             $rootScope.direction = 1;
-            vm.selectedMovie = CinemaService.getSelectedMovie();
+            vm.selectedMovie = CinemaService.collection.selectedMovie;
             $rootScope.headerTitle = vm.selectedMovie.original_title;
             vm.openArtistWiki = openArtistWiki;
             getSimilarMovies();
@@ -127,7 +127,7 @@
 
         function openArtistWiki(artist) {
             console.log("Artist", angular.toJson(artist));
-            movieWikiService.setSelectedArtist(artist);
+            ArtistService.setSelectedArtist(artist);
             $location.path('/artist');
         }
 

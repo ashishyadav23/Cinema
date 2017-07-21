@@ -41,11 +41,11 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
   <div layout="column" layout-fill>
-    <md-toolbar class="md-hue-3" style="background-color: orange;" ng-controller="IndexController">
+    <md-toolbar class="md-hue-3" style="background-color: #00bcd4;" ng-controller="IndexController">
       <div class="md-toolbar-tools">
         <md-button class="md-icon-button" aria-label="Settings">
-          <i ng-if="direction==0" class="material-icons" style="color:red;">menu</i>
-          <i ng-if="direction==1" class="material-icons" style="color: red;font-size: 30px;margin: -2px;margin-left: -5px;" ng-click="previousPage();">keyboard_arrow_left</i>
+          <i ng-if="direction==0" class="material-icons" style="color:#fff;">menu</i>
+          <i ng-if="direction==1" class="material-icons" style="color: #fff;font-size: 30px;margin: -2px;margin-left: -5px;" ng-click="previousPage();">keyboard_arrow_left</i>
         </md-button>
         <h2>
           <span style="color:white;">{{headerTitle}}</span>
@@ -60,7 +60,7 @@
       </div>
     </md-toolbar>
 
-    <md-content layout="row" flex>
+    <md-content layout="row" flex style="height: 100%">
       <div ng-view flex></div>
     </md-content>
 

@@ -42,13 +42,13 @@
                         <div class="video-container" ng-if="vm.videoUrl!=''">
                             <iframe src="{{vm.videoUrl}}" frameborder="0" allowfullscreen></iframe>
                         </div>
-                        <img ng-if="vm.videoUrl==''" style="width:100&;height:200px;" class="md-card-image" ng-src="https://image.tmdb.org/t/p/w640/{{vm.selectedMovie.poster_path}}"
+                        <img ng-if="vm.videoUrl==''" style="width:100%;height:200px;" class="md-card-image" ng-src="https://image.tmdb.org/t/p/w640/{{vm.selectedMovie.poster_path}}"
                             class="md-avatar" aria-label="{{vm.selectedMovie.original_title}}" alt="{{vm.selectedMovie.original_title}}"
                         />
                     </md-card>
                 </div>
                 <div style="text-align: center;margin-top: 10px;text-transform: uppercase;color: orange;">
-                    <span>{{vm.selectedMovie.original_title}}/</span>
+                    <span>{{vm.selectedMovie.original_title}}</span>
                 </div>
             </md-card-content>
         </md-card>

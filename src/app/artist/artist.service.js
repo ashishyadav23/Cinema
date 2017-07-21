@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('cinema')
-        .service('movieWikiService', movieWikiService);
-    function movieWikiService(tmdbApiKey, $http) {
+        .service('ArtistService', ArtistService);
+    function ArtistService(tmdbApiKey, $http) {
         var selectedArtist = "";
         this.getSelectedArtist = getSelectedArtist;
         this.setSelectedArtist = setSelectedArtist;

@@ -8,13 +8,13 @@
     function routeConfig($routeProvider) {
         $routeProvider
             .when('/dashboard', {
-                templateUrl: 'app/dashboard/dashboard.html',
-                controller: 'DashboardController',
+                templateUrl: 'app/moviesList/moviesList.html',
+                controller: 'MoviesListController',
                 controllerAs: 'vm'
             })
             .when('/tvShowsWiki', {
                 templateUrl: 'app/tvShowsWiki/tvShowsWiki.html',
-                controller: 'tvShowsWikiController',
+                controller: 'TvShowsWikiController',
                 controllerAs: 'vm'
             })
             .when('/movieWiki', {

@@ -17,6 +17,11 @@
         controller: 'ArtistController',
         controllerAs: 'vm'
       })
+      .when('/tvshows', {
+        templateUrl: 'app/tvshows/tvshows.html',
+        controller: 'TvShowsController',
+        controllerAs: 'vm'
+      })
       .otherwise({
         redirectTo: '/'
       });

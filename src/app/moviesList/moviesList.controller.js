@@ -3,22 +3,22 @@
 
     angular
         .module('cinema')
-        .controller('DashboardController', DashboardController);
+        .controller('MoviesListController', MoviesListController);
 
     /** @ngInject */
-    function DashboardController(CinemaService, $location, $rootScope) {
+    function MoviesListController(CinemaService, $location, $rootScope) {
         var vm = this;
         init();
         function init() {
             $rootScope.headerTitle = "Dashboard"
             vm.openMovieWiki = openMovieWiki
-            vm.seeAllMovieList = CinemaService.getSeeAllList()
+            vm.seeAllMovieList = CinemaService.collection.seeAllMovies;
         }
 
         function openMovieWiki(item) {
             CinemaService.setSelectedMovie(item)
             $location.path('/movieWiki')
         }
-        
+
     }
 })();

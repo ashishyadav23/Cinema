@@ -6,12 +6,12 @@
                 <div>
                     <img class="background" style="width:100%;height:150px;" class="md-card-image" ng-src="https://image.tmdb.org/t/p/w640/{{slide.poster_path}}"
                         class="md-avatar" aria-label="{{slide.title}}" alt="{{slide.title}}" />
-                    <img ng-if="slide.poster_path=='null' || slide.poster_path=='' || slide.poster_path=='undefined' " class="md-card-image placeholder" class="md-avatar" aria-label="{{slide.title}}"
-                    />
+                    <img ng-if="slide.poster_path=='null' || slide.poster_path=='' || slide.poster_path=='undefined' " class="md-card-image placeholder"
+                        class="md-avatar" aria-label="{{slide.title}}" />
 
                 </div>
                 <div style="text-align:center;">
-                    <span>{{slide.title}}</span>
+                    <span>{{slide.title}}{{slide.title.length>15?'...':''}}</span>
                 </div>
                 <div style="text-align:center;">
                     <span>{{slide.vote_average}}<i style="font-size:15px;color:#ecc361;" class="material-icons">star_rate</i></span>
@@ -21,3 +21,10 @@
         </ks-swiper-slide>
     </ks-swiper-container>
 </div>
+<style>
+    @media (min-width: 1200px) {
+        img {
+            height: 200px !important;
+        }
+    }
+</style>
