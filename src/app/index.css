@@ -123,4 +123,11 @@
     md-card md-card-title {
         padding: 10px !important;
     }
-    /* lg */
+
+    .selectedColor {
+        background: gray;
+        color: #fff;
+    }
+    .layout-padding, .layout-padding-gt-sm, .layout-padding-md, .layout-padding > *, .layout-padding-gt-sm > *, .layout-padding-md > *, .layout-padding > .flex, .layout-padding > .flex-gt-sm, .layout-padding > .flex-md{
+        padding: 0px !important;
+    }

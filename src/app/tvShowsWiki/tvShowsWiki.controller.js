@@ -159,7 +159,7 @@
                     seasonList.push(seasons);
                 }
             });
-            return seasonList;
+            return seasonList.reverse();
         }
 
         function getIndex(arrayList, item) {

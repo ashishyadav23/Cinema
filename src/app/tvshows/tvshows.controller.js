@@ -103,9 +103,11 @@
             $location.path('tvShowsWiki');
         };
 
-        vm.openSeeAll = function (dataList) {
-            CinemaService.setSeeAllList(dataList);
-            $location.path('/dashboard');
+        vm.openSeeAll = function (dataList,sets) {
+            CinemaService.collection.selectedSeeAllType = 1;
+            CinemaService.collection.setSeeAllTvShows(dataList);
+            $rootScope.headerTitle = sets;
+            $location.path('/seeAllList');
 
         }
 

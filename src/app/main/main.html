@@ -14,7 +14,7 @@
       <md-card-title-text>
         <span class="md-headline">Upcoming movies</span>
       </md-card-title-text>
-      <div ng-click="vm.openSeeAll(vm.upComingMovies)" style="text-align:right;">
+      <div ng-click="vm.openSeeAll(vm.upComingMovies,'UpComing movies')" style="text-align:right;">
         <md-button md-no-ink class="md-primary">See All</md-button>
       </div>
     </md-card-title>
@@ -30,6 +30,9 @@
       <md-card-title-text>
         <span class="md-headline">Nowplaying movies</span>
       </md-card-title-text>
+      <div ng-click="vm.openSeeAll(vm.nowPlayingMovies,'NowPlaying movies')" style="text-align:right;">
+        <md-button md-no-ink class="md-primary">See All</md-button>
+      </div>
     </md-card-title>
     <md-card-content>
       <cinema-Swiper data="vm.nowPlayingMovies" events="vm.nowPlayingMoviesSwiper" swiper-click="vm.openMovieWiki(data);"> </cinema-Swiper>
@@ -41,6 +44,9 @@
       <md-card-title-text>
         <span class="md-headline">Toprated movies</span>
       </md-card-title-text>
+      <div ng-click="vm.openSeeAll(vm.topRatedMovies,'TopRated movies')" style="text-align:right;">
+        <md-button md-no-ink class="md-primary">See All</md-button>
+      </div>
     </md-card-title>
     <md-card-content>
       <cinema-Swiper data="vm.topRatedMovies" events="vm.topRatedMoviesSwiper" swiper-click="vm.openMovieWiki(data);"> </cinema-Swiper>
@@ -52,6 +58,9 @@
       <md-card-title-text>
         <span class="md-headline">Popular movies</span>
       </md-card-title-text>
+      <div ng-click="vm.openSeeAll(vm.popularMovies,'Popular movies')" style="text-align:right;">
+        <md-button md-no-ink class="md-primary">See All</md-button>
+      </div>
     </md-card-title>
     <md-card-content>
       <cinema-Swiper data="vm.popularMovies" events="vm.popularMoviesSwiper" swiper-click="vm.openMovieWiki(data);"> </cinema-Swiper>

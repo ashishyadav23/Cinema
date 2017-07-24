@@ -40,25 +40,50 @@
   <!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
+  <div layout="row" ng-cloak flex ng-controller="IndexController as vm">
+    <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
+
+      <md-toolbar style="background-color:#00bcd4">
+        <div>
+          <p>Cinema</p>
+        </div>
+
+      </md-toolbar>
+      <md-content layout-padding>
+        <md-list>
+          <md-list-item ng-repeat=" item in vm.drawerList" ng-click="vm.onDrawerItemClick(item.id)" ng-class="{'selectedColor':item.isSelected}">
+            <div layout="row" flex>
+              <div flex="20">
+                <i class="material-icons">{{item.image}}</i>
+              </div>
+              <div flex="80">
+                <span ng-bind="item.name"></span>
+              </div>
+
+            </div>
+          </md-list-item>
+        </md-list>
+
+      </md-content>
+
+    </md-sidenav>
+  </div>
+
   <div layout="column" layout-fill>
-    <md-toolbar class="md-hue-3" style="background-color: #00bcd4;" ng-controller="IndexController">
+    <md-toolbar class="md-hue-3" style="background-color: #00bcd4;" ng-controller="IndexController as vm">
       <div class="md-toolbar-tools">
         <md-button class="md-icon-button" aria-label="Settings">
-          <i ng-if="direction==0" class="material-icons" style="color:#fff;">menu</i>
-          <i ng-if="direction==1" class="material-icons" style="color: #fff;font-size: 30px;margin: -2px;margin-left: -5px;" ng-click="previousPage();">keyboard_arrow_left</i>
+          <i ng-if="direction==0" class="material-icons" style="color:#fff;" ng-click="vm.factory.openDrawer();">menu</i>
+          <i ng-if="direction==1" class="material-icons" style="color: #fff;font-size: 30px;margin: -2px;margin-left: -5px;" ng-click="vm.factory.previousPage();">keyboard_arrow_left</i>
         </md-button>
         <h2>
           <span style="color:white;">{{headerTitle}}</span>
         </h2>
         <span flex></span>
-        <!--<md-button class="md-icon-button" aria-label="Favorite">
-            <md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"></md-icon>
-          </md-button>
-          <md-button class="md-icon-button" aria-label="More">
-            <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
-          </md-button>-->
       </div>
     </md-toolbar>
+
+
 
     <md-content layout="row" flex style="height: 100%">
       <div ng-view flex></div>

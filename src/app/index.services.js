@@ -7,6 +7,7 @@
         var appService = this;
         appService.collection = {
             "nowPlaying": "",
+            "selectedSeeAllType":'',
             "setNowPlaying": setNowPlaying,
             "selectedMovie": "",
             "setSelectedMovie": setSelectedMovie,

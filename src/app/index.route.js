@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -22,6 +22,21 @@
         controller: 'TvShowsController',
         controllerAs: 'vm'
       })
+      // .when('/people', {
+      //   templateUrl: 'app/people/people.html',
+      //   controller: 'PeopleController',
+      //   controllerAs: 'vm'
+      // })
+      // .when('/Tvshows', {
+      //   templateUrl: 'app/AllTvshows/tvshows.html',
+      //   controller: 'TvShowsController',
+      //   controllerAs: 'vm'
+      // })
+      // .when('/Movies', {
+      //   templateUrl: 'app/AllMovies/tvshows.html',
+      //   controller: 'TvShowsController',
+      //   controllerAs: 'vm'
+      // })
       .otherwise({
         redirectTo: '/'
       });

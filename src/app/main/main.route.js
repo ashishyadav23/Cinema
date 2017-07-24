@@ -7,9 +7,9 @@
 
     function routeConfig($routeProvider) {
         $routeProvider
-            .when('/dashboard', {
-                templateUrl: 'app/moviesList/moviesList.html',
-                controller: 'MoviesListController',
+            .when('/seeAllList', {
+                templateUrl: 'app/seeAllList/seeAllList.html',
+                controller: 'SeeAllListController',
                 controllerAs: 'vm'
             })
             .when('/tvShowsWiki', {

@@ -25,18 +25,9 @@
       vm.upComingMovies = [];
       vm.topRatedMovies = [];
 
-      /**TV shows  */
-
-      vm.popularTvShows = [];
-      vm.ontheAirShows = [];
-      vm.arrivingShows = [];
-      vm.topRatedShows = [];
-
       vm.selectedType = "";
-      // vm.getDataOntype = getDataOntype;
       $rootScope.headerTitle = "Dashboard";
       $rootScope.direction = 0;
-      // loadAllShowsData();
 
       loadAllMoviesData();
 
@@ -61,16 +52,7 @@
           banner: 'ca-app-pub-xxx/zzz', // or DFP format "/6253334/dfp_example_ad"
           interstitial: 'ca-app-pub-xxx/kkk'
         };
-        console.log(3);
       }
-
-      // if (AdMob) AdMob.createBanner({
-      //   adId: admobid.banner,
-      //   position: AdMob.AD_POSITION.TOP_CENTER,
-      //   autoShow: true
-      // });
-      // }
-
     }
 
 
@@ -79,15 +61,6 @@
       getNowPlayingMovies();
       getPopularMovies();
       getTopRatedMovies();
-
-      // loadAllShowsData();
-    }
-
-    function loadAllShowsData() {
-      getpopularTv();
-      getTopRatedShows();
-      getArrivingShows();
-      getOnTheAirShows();
     }
 
     function navbarClick(pageId) {
@@ -126,39 +99,6 @@
           getNowPlayingMovies(param);
         });
       };
-
-      vm.popularShowsSwiper = function (swiper) {
-        swiper.initObservers();
-        swiper.on('onReachEnd', function () {
-          param.page++;
-          getpopularTv(param);
-        });
-      };
-
-      vm.topRatedShowsSwiper = function (swiper) {
-        swiper.initObservers();
-        swiper.on('onReachEnd', function () {
-          param.page++;
-          getTopRatedShows(param);
-        });
-      };
-
-      vm.ontheAirShowsSwiper = function (swiper) {
-        swiper.initObservers();
-        swiper.on('onReachEnd', function () {
-          param.page++;
-          getOnTheAirShows(param);
-        });
-      };
-
-      vm.arrivingShowsSwiper = function (swiper) {
-        swiper.initObservers();
-        swiper.on('onReachEnd', function () {
-          param.page++;
-          getArrivingShows(param);
-        });
-      };
-
     }
 
 
@@ -168,9 +108,11 @@
       $location.path('/movieWiki');
     };
 
-    vm.openSeeAll = function (dataList) {
+    vm.openSeeAll = function (dataList,sets) {
+      CinemaService.collection.selectedSeeAllType = 0;
       CinemaService.collection.setSeeAllMovies(dataList);
-      $location.path('/dashboard');
+      $rootScope.headerTitle = sets;
+      $location.path('/seeAllList');
 
     }
 
@@ -225,58 +167,5 @@
           console.log("error", angular.toJson(error));
         });
     }
-
-    function getpopularTv() {
-      tmdbTV.tv.popular(param,
-        function success(success) {
-          if (success.hasOwnProperty('results')) {
-            if (success.results.length > 0) {
-              vm.popularTvShows = vm.popularTvShows.concat(success.results);
-            }
-          }
-        }, function error() {
-          console.log("error", angular.toJson(error));
-        });
-    }
-
-    function getTopRatedShows() {
-      tmdbTV.tv.topRated(param,
-        function success(success) {
-          if (success.hasOwnProperty('results')) {
-            if (success.results.length > 0) {
-              vm.topRatedShows = vm.topRatedShows.concat(success.results);
-            }
-          }
-        }, function error() {
-          console.log("error", angular.toJson(error));
-        });
-    }
-
-    function getOnTheAirShows() {
-      tmdbTV.tv.onAir(param,
-        function success(success) {
-          if (success.hasOwnProperty('results')) {
-            if (success.results.length > 0) {
-              vm.ontheAirShows = vm.ontheAirShows.concat(success.results);
-            }
-          }
-        }, function error() {
-          console.log("error", angular.toJson(error));
-        });
-    }
-
-    function getArrivingShows() {
-      tmdbTV.tv.onAirToday(param,
-        function success(success) {
-          if (success.hasOwnProperty('results')) {
-            if (success.results.length > 0) {
-              vm.arrivingShows = vm.arrivingShows.concat(success.results);
-            }
-          }
-        }, function error() {
-          console.log("error", angular.toJson(error));
-        });
-    }
-
   }
 })();

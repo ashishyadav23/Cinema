@@ -1,8 +1,20 @@
 <div layout="column" style="margin-top:10px;">
-    <md-content layout-padding>
+    <md-content>
         <md-grid-list md-cols-gt-md="3" md-cols-md="3" md-cols-sm="2" md-gutter="1px" md-row-height="1:1.7" md-row-height-lg="1:1.5"
-            md-cols="2">
-            <md-grid-tile ng-repeat="movie in vm.seeAllMovieList" id="view">
+            md-cols="2" ng-if="vm.type==1">
+            <md-grid-tile ng-repeat="tv in vm.seeAllList" id="view">
+                <md-card style="width:100%;" ng-click="vm.openTvWiki(tv)">
+                    <img style="width:100%;height:100%;" ng-src="https://image.tmdb.org/t/p/w640/{{tv.poster_path}}" class="md-card-image md-avatar"
+                        aria-label="{{tv.name}}" alt="{{tv.name}}">
+                    <md-card-content>
+                        <span>{{tv.name}}</span> (<span flex="10">{{tv.vote_average}}</span>)
+                    </md-card-content>
+                </md-card>
+            </md-grid-tile>
+        </md-grid-list>
+        <md-grid-list md-cols-gt-md="3" md-cols-md="3" md-cols-sm="2" md-gutter="1px" md-row-height="1:1.7" md-row-height-lg="1:1.5"
+            md-cols="2" ng-if="vm.type==0">
+            <md-grid-tile ng-repeat="movie in vm.seeAllList" id="view">
                 <md-card style="width:100%;" ng-click="vm.openMovieWiki(movie)">
                     <img style="width:100%;height:100%;" ng-src="https://image.tmdb.org/t/p/w640/{{movie.poster_path}}" class="md-card-image md-avatar"
                         aria-label="{{movie.original_title}}" alt="{{movie.original_title}}">
