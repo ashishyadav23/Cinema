@@ -7,7 +7,7 @@
     function cinemaSwiper($log, $timeout) {
         return {
             restrict: 'E',
-            templateUrl: 'app/cinemaDirective/cinemaSwiper.html',
+            templateUrl: 'app/cinemaDirective/carousel/cinemaSwiper.html',
             scope: {
                 data: '=',
                 events: '=',
@@ -27,7 +27,7 @@
     function cinemaTv($log, $timeout) {
         return {
             restrict: 'E',
-            templateUrl: 'app/cinemaDirective/cinemaTvSwiper.html',
+            templateUrl: 'app/cinemaDirective/carousel/cinemaTvSwiper.html',
             scope: {
                 data: '=',
                 events: '=',
@@ -37,14 +37,14 @@
         }
         //link function
         function linkTv(scope, element, attr) {
-            scope.$watch('data', function (newValue, oldValue) {
-                angular.forEach(newValue, function (value, key) {
-                    if (value.poster_path == null) {
-                        newValue[key].poster_path = '';
-                        scope.data = newValue;
-                    }
-                });
-            })
+            // scope.$watch('data', function (newValue, oldValue) {
+            //     angular.forEach(newValue, function (value, key) {
+            //         if (value.poster_path == null) {
+            //             newValue[key].poster_path = '';
+            //             scope.data = newValue;
+            //         }
+            //     });
+            // })
             scope.onReadySwiper = scope.events;
 
             scope.swiperClick = scope.swiperClick;

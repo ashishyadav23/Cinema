@@ -34,7 +34,7 @@
             }
         }
         function openDashboard() {
-            $location.path('/').replace();
+            $location.path('/dashboard').replace();
         }
         function openMovie() {
             $location.path('/Movies').replace();

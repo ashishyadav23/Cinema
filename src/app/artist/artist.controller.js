@@ -80,7 +80,7 @@
         }
 
         vm.openMovieWiki = function (movie) {
-            CinemaService.setSelectedMovie(movie);
+            CinemaService.collection.setSelectedMovie(movie);
             $location.path('/movieWiki');
         }
 

@@ -33,7 +33,7 @@
 </style>
 <div layout="vertical" layout-fill>
     <div id="backgroundImage"></div>
-    <md-content flex>
+    <md-content flex class="gradient">
         <!--<md-card flex ng-style="{'background-image':'url(https://image.tmdb.org/t/p/w640/{{vm.selectedMovie.poster_path}})'}">-->
         <md-card flex>
             <md-card-content id="video">
@@ -101,30 +101,7 @@
                 </md-tab>
             </md-tabs>
         </md-content>
-        <md-card ng-if="vm.similarMoviesList.length>0">
-            <md-card-header>
-                <md-card-header-text>
-                    <span class="md-title">Similar movies</span>
-                </md-card-header-text>
-            </md-card-header>
 
-            <md-card-content>
-                <ks-swiper-container swiper="swiper" on-ready="vm.onReadySwiper(swiper)" initial-slide="0" loop="false" show-nav-buttons="false"
-                    slides-per-view="2" space-between="5" pagination-clickable="false">
-                    <ks-swiper-slide class="swiper-slide" ng-repeat="movie in vm.similarMoviesList" ng-click="vm.viewSelectedMovie(movie)">
-                        <div layout="column">
-                            <div>
-                                <img style="width:100%;height:200px;" class="md-card-image" ng-src="https://image.tmdb.org/t/p/w640/{{movie.poster_path}}"
-                                    class="md-avatar" aria-label="{{movie.original_title}}" alt="{{movie.original_title}}" />
-                            </div>
-                            <div style="text-align:center;">
-                                <span>{{movie.original_title}}</span>
-                            </div>
-                        </div>
-                    </ks-swiper-slide>
-                </ks-swiper-container>
-            </md-card-content>
-        </md-card>
 
         <md-card>
             <md-card-header ng-if="vm.castList.length>0">
@@ -148,6 +125,33 @@
                         </div>
                     </ks-swiper-slide>
                 </ks-swiper-container>
+            </md-card-content>
+        </md-card>
+
+        <md-card ng-if="vm.similarMoviesList.length>0">
+            <md-card-header>
+                <md-card-header-text>
+                    <span class="md-title">Similar movies</span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-content>
+                <div class="background" ng-if="vm.similarMoviesList ==''"></div>
+                <cinema-Swiper data="vm.similarMoviesList" events="vm.similarMoviesListSwiper" swiper-click="vm.viewSelectedMovie(data);">
+                </cinema-Swiper>
+            </md-card-content>
+        </md-card>
+
+        <md-card ng-if="vm.recommendMoviesList.length>0">
+            <md-card-header>
+                <md-card-header-text>
+                    <span class="md-title">Recommended movies</span>
+                </md-card-header-text>
+            </md-card-header>
+
+            <md-card-content>
+                <div class="background" ng-if="vm.recommendMoviesList ==''"></div>
+                <cinema-Swiper data="vm.recommendMoviesList" events="vm.recommendMoviesListSwiper" swiper-click="vm.viewSelectedMovie(data);">
+                </cinema-Swiper>
             </md-card-content>
         </md-card>
     </md-content>

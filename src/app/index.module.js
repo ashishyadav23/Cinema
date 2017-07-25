@@ -9,6 +9,7 @@
     var vm = this;
     init();
     function init() {
+      $rootScope.showToolbar = true;
       $rootScope.headerTitle = "cinema";
       vm.factory = AppFactory;
       vm.onDrawerItemClick = onDrawerItemClick;

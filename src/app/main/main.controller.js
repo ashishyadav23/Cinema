@@ -8,6 +8,8 @@
   /** @ngInject */
   function MainController(tmdbMovie, tmdbTV, tmdbApiKey, CinemaService, TvShowService, $location, $rootScope, $filter) {
     var vm = this;
+    $rootScope.showToolbar = true;
+
     tmdbMovie.setup(tmdbApiKey, true);
     var param = {
       "language": "en-US",
@@ -87,8 +89,11 @@
       vm.topRatedMoviesSwiper = function (swiper) {
         swiper.initObservers();
         swiper.on('onReachEnd', function () {
+          // if (param.page < 5) {
           param.page++;
           getTopRatedMovies(param);
+          // }
+
         });
       };
 
@@ -108,7 +113,7 @@
       $location.path('/movieWiki');
     };
 
-    vm.openSeeAll = function (dataList,sets) {
+    vm.openSeeAll = function (dataList, sets) {
       CinemaService.collection.selectedSeeAllType = 0;
       CinemaService.collection.setSeeAllMovies(dataList);
       $rootScope.headerTitle = sets;
@@ -144,7 +149,7 @@
     }
     function getUpComingMovies(param) {
       tmdbMovie.upcoming(param,
-        function success(success) {
+        function success(success, status, header) {
           if (success.hasOwnProperty('results')) {
             if (success.results.length > 0) {
               vm.upComingMovies = $filter('orderBy')(vm.upComingMovies.concat(success.results), 'vote_average');
@@ -156,7 +161,7 @@
     }
     function getNowPlayingMovies() {
       tmdbMovie.nowPlaying(param,
-        function success(success) {
+        function success(success, status, header) {
           if (success.hasOwnProperty('results')) {
             if (success.results.length > 0) {
               vm.nowPlayingMovies = $filter('orderBy')(vm.nowPlayingMovies.concat(success.results), 'vote_average');

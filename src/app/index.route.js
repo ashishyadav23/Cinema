@@ -7,7 +7,7 @@
 
   function routeConfig($routeProvider) {
     $routeProvider
-      .when('/', {
+      .when('/dashboard', {
         templateUrl: 'app/main/main.html',
         controller: 'MainController',
         controllerAs: 'vm'
@@ -20,6 +20,11 @@
       .when('/tvshows', {
         templateUrl: 'app/tvshows/tvshows.html',
         controller: 'TvShowsController',
+        controllerAs: 'vm'
+      })
+      .when('/', {
+        templateUrl: 'app/landing/landing.html',
+        controller: 'LandingPageController',
         controllerAs: 'vm'
       })
       // .when('/people', {

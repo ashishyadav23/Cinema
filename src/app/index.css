@@ -128,6 +128,22 @@
         background: gray;
         color: #fff;
     }
-    .layout-padding, .layout-padding-gt-sm, .layout-padding-md, .layout-padding > *, .layout-padding-gt-sm > *, .layout-padding-md > *, .layout-padding > .flex, .layout-padding > .flex-gt-sm, .layout-padding > .flex-md{
+
+    .layout-padding,
+    .layout-padding-gt-sm,
+    .layout-padding-md,
+    .layout-padding>*,
+    .layout-padding-gt-sm>*,
+    .layout-padding-md>*,
+    .layout-padding>.flex,
+    .layout-padding>.flex-gt-sm,
+    .layout-padding>.flex-md {
         padding: 0px !important;
     }
+
+    .gradient {
+        background: linear-gradient(to bottom, #f1f2b5, #135058) !important;
+
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+    /* Chrome 10-25, Safari 5.1-6 */

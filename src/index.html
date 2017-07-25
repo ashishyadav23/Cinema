@@ -70,7 +70,7 @@
   </div>
 
   <div layout="column" layout-fill>
-    <md-toolbar class="md-hue-3" style="background-color: #00bcd4;" ng-controller="IndexController as vm">
+    <md-toolbar class="md-hue-3" style="background-color: #00bcd4;" ng-controller="IndexController as vm" ng-if="showToolbar">
       <div class="md-toolbar-tools">
         <md-button class="md-icon-button" aria-label="Settings">
           <i ng-if="direction==0" class="material-icons" style="color:#fff;" ng-click="vm.factory.openDrawer();">menu</i>
@@ -86,7 +86,7 @@
 
 
     <md-content layout="row" flex style="height: 100%">
-      <div ng-view flex></div>
+      <div class="content" ng-view flex></div>
     </md-content>
 
   </div>
