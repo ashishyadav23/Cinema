@@ -127,6 +127,18 @@
     .selectedColor {
         background: gray;
         color: #fff;
+        transform: matrix(1, 0, 0, 1, 0, 0);
+    }
+
+    .animate-enter {
+        -webkit-transition: 1s linear all;
+        /* Chrome */
+        transition: 1s linear all;
+        opacity: 0;
+    }
+
+    .animate-enter.animate-enter-active {
+        opacity: 1;
     }
 
     .layout-padding,
@@ -143,7 +155,11 @@
 
     .gradient {
         background: linear-gradient(to bottom, #f1f2b5, #135058) !important;
-
         /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     }
     /* Chrome 10-25, Safari 5.1-6 */
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        top: 33% !important;
+    }

@@ -4,4 +4,5 @@ coverage/
 .idea/
 .tmp/
 dist/
-git 
+git
+src/bower_components 

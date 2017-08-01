@@ -45,10 +45,12 @@
                         <img ng-if="vm.videoUrl==''" style="width:100%;height:200px;" class="md-card-image" ng-src="https://image.tmdb.org/t/p/w640/{{vm.selectedMovie.poster_path}}"
                             class="md-avatar" aria-label="{{vm.selectedMovie.original_title}}" alt="{{vm.selectedMovie.original_title}}"
                         />
+                        <img ng-if="vm.videoUrl==''&& vm.selectedMovie.poster_path=='null' || vm.selectedMovie.poster_path=='' || vm.selectedMovie.poster_path=='undefined' "
+                            class="md-card-image placeholder" class="md-avatar" aria-label="{{vm.selectedMovie.title}}" />
                     </md-card>
                 </div>
                 <div style="text-align: center;margin-top: 10px;text-transform: uppercase;color:#000;">
-                    <span>{{vm.selectedMovie.original_title}}</span>
+                    <span>{{vm.selectedMovie.title}}</span>
                 </div>
             </md-card-content>
         </md-card>
@@ -91,8 +93,8 @@
                                 <div layout="row" flex>
                                     <span flex="30">Genres</span>
                                     <div flex="70" style="text-align:center;" ng-repeat=" genre in vm.movieDetails.genres">
-                                        <span flex="60" style="text-align: justify">{{genre.name}}</span>
-                                        <span flex="10" ng-if="!$last">,</span>
+                                        <a ng-click="vm.openGenre(genre)" flex="65" style="text-align: justify" md-no-ink class="md-primary">{{genre.name}}</a>
+                                        <span flex="5" ng-if="!$last">,</span>
                                     </div>
                                 </div>
                             </md-card-content>

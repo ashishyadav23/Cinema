@@ -16,6 +16,7 @@
             vm.artistBio = "";
             vm.artistMovies = [];
             vm.selectedArtist = ArtistService.getSelectedArtist();
+            console.log("SelectedArtist", vm.selectedArtist);
 
             if (angular.isDefined(vm.selectedArtist)) {
                 loadData();
@@ -32,7 +33,12 @@
 
         function loadData() {
             getmovies();
+            getTvShows();
             getBio();
+        }
+
+        function getArtistDetailsById(id) {
+
         }
 
         function getmovies() {
@@ -48,6 +54,14 @@
                 function error() {
                     console.log("error", angular.toJson(error));
                 });
+        }
+
+        function getTvShows() {
+            param.with_people = vm.selectedArtist.id;
+            tmdbTV.tv.discover(param, function successCallback(success) {
+                console.log("ArtistTv", success);
+            }, function errorCallback(error) {
+            });
         }
 
         vm.calculateAge = function (birthday, deathday) {
@@ -72,6 +86,7 @@
 
             function successCallback(successBio) {
                 vm.artistBio = successBio.data;
+                console.log("artistBio", vm.artistBio);
             }
 
             function errorCallback(error) {
@@ -81,7 +96,7 @@
 
         vm.openMovieWiki = function (movie) {
             CinemaService.collection.setSelectedMovie(movie);
-            $location.path('/movieWiki');
+            $location.path('/movieWiki/' + movie.id);
         }
 
     }

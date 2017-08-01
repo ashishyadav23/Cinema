@@ -1,0 +1,47 @@
+<md-content>
+    <md-card>
+        <md-card-content>
+            <div layout="column">
+                <div layout="row" flex>
+                    <div flex="80">
+                        <md-input-container class="md-block" flex>
+                            <label>Search Movies</label>
+                            <input ng-model="vm.searchQuery" ng-change="vm.searchOnChange();">
+                        </md-input-container>
+                    </div>
+                    <div flex="20" class="cinema-search-icon" ng-click="vm.searchClicked();">
+                        <md-button class="md-icon-button md-primary" aria-label="search">
+                            <md-icon class="material-icons">search</md-icon>
+                        </md-button>
+                    </div>
+
+                </div>
+                <div>
+                    <md-grid-list md-cols-gt-md="3" md-cols-md="3" md-cols-sm="2" md-gutter="1px" md-row-height="1:1.7" md-row-height-lg="1:1.5"
+                        md-cols="2">
+                        <md-grid-tile ng-repeat="movie in  vm.movieList" id="view">
+                            <md-card style="width:100%;" ng-click="vm.openMovieWiki(movie)">
+                                <img style="width:100%;height:100%;" ng-src="https://image.tmdb.org/t/p/w640/{{movie.poster_path}}" class="md-card-image md-avatar"
+                                    aria-label="{{movie.original_title}}" alt="{{movie.original_title}}">
+                                <md-card-content>
+                                    <span>{{movie.title}}</span> (<span flex="10">{{movie.vote_average}}</span>)
+                                </md-card-content>
+                            </md-card>
+                        </md-grid-tile>
+                    </md-grid-list>
+                </div>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>
+<style>
+    md-card md-card-content {
+        padding: 0px;
+    }
+    
+    .cinema-search-icon {
+        text-align: center;
+        position: absolute;
+        right: 5%;
+    }
+</style>

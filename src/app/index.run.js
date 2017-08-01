@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -6,9 +6,11 @@
     .run(runBlock);
 
   /** @ngInject */
-  function runBlock($log) {
+  function runBlock($log, tmdbMovie, tmdbApiKey) {
 
     $log.debug('runBlock end');
+    tmdbMovie.setup(tmdbApiKey, true);
+
   }
 
 })();

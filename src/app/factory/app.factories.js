@@ -14,35 +14,42 @@
         function openDrawer() {
             $mdSidenav('left').toggle();
         }
+        function closeDrawer() {
+            $mdSidenav('left').close()
+        }
         function previousPage() {
             $window.history.back();
         }
         function drawerItemClick(id) {
             switch (id) {
-                case '1':
+                case 1:
                     openDashboard();
                     break;
-                case '2':
+                case 2:
                     openMovies();
                     break;
-                case '1':
+                case 3:
                     openTvShows();
                     break;
-                case '2':
+                case 4:
                     openPeople();
                     break;
             }
         }
         function openDashboard() {
+            closeDrawer();
             $location.path('/dashboard').replace();
         }
-        function openMovie() {
+        function openMovies() {
+            closeDrawer();
             $location.path('/Movies').replace();
         }
         function openTvShows() {
+            closeDrawer();
             $location.path('/Tvshows').replace();
         }
         function openPeople() {
+            closeDrawer();
             $location.path('/People').replace();
         }
     }

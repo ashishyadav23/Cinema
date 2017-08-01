@@ -47,6 +47,8 @@
                             <img ng-if="vm.selectedTvVideos.length<=0" style="width:100%;height:200px;" class="md-card-image" ng-src="https://image.tmdb.org/t/p/w640/{{vm.selectedTv.poster_path}}"
                                 class="md-avatar" aria-label="{{vm.selectedTv.original_name}}" alt="{{vm.selectedTv.original_name}}"
                             />
+                            <img ng-if="vm.selectedTvVideos.length<=0 && vm.selectedTv.poster_path=='null' || vm.selectedTv.poster_path=='' || vm.selectedTv.poster_path=='undefined' "
+                                class="md-card-image placeholder" class="md-avatar" aria-label="{{vm.selectedMovie.title}}" />
                         </md-card>
 
                     </div>

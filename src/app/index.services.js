@@ -7,7 +7,7 @@
         var appService = this;
         appService.collection = {
             "nowPlaying": "",
-            "selectedSeeAllType":'',
+            "selectedSeeAllType": '',
             "setNowPlaying": setNowPlaying,
             "selectedMovie": "",
             "setSelectedMovie": setSelectedMovie,
@@ -47,10 +47,10 @@
         function navbarClick(pageId) {
             if (angular.equals(pageId, 1)) {
                 appService.collection.currentNavItem = 'movies';
-                $location.path('/main').replace();
+                $location.path('/dashboard').replace();
             } else if (angular.equals(pageId, 2)) {
                 appService.collection.currentNavItem = 'tvshows';
-                $location.path('/tvshows').replace();;
+                $location.path('/tvshows/tvshows').replace();;
             }
         }
 

@@ -6,7 +6,7 @@
         .controller('MovieWikiController', MovieWikiController);
 
     /** @ngInject */
-    function MovieWikiController(tmdbMovie, CinemaService, $rootScope, $timeout, $filter, $sce, $location, ArtistService, $route) {
+    function MovieWikiController(tmdbMovie, CinemaService, $scope, $rootScope, $timeout, $filter, $sce, $location, ArtistService, $routeParams) {
         var vm = this;
         var param = {
             "language": "en-US",
@@ -15,15 +15,37 @@
         init();
 
         function init() {
-            console.log(window.location);
+            if (!CinemaService.collection.selectedMovie) {
+                getMovieDetailsById($routeParams.id);
+            } else {
+                $rootScope.direction = 1;
+                vm.selectedMovie = CinemaService.collection.selectedMovie;
+                console.log("SelectedMovie", vm.selectedMovie);
+                $rootScope.headerTitle = vm.selectedMovie.title;
+                vm.openArtistWiki = openArtistWiki;
+                vm.openGenre = openGenre;
+                clearData();
+                loadMovies();
+            }
 
-            $rootScope.direction = 1;
-            vm.selectedMovie = CinemaService.collection.selectedMovie;
-            console.log("SelectedMovie", vm.selectedMovie);
-            $rootScope.headerTitle = vm.selectedMovie.original_title;
-            vm.openArtistWiki = openArtistWiki;
-            clearData();
-            loadMovies();
+
+        }
+
+        $scope.$on('refresh', function ($event, data) {
+            init();
+        });
+
+        function openGenre(genre) {
+            
+        }
+
+        function getMovieDetailsById(id) {
+            tmdbMovie.details(id, param, function successCallback(success) {
+                CinemaService.collection.setSelectedMovie(success);
+                $scope.$broadcast('refresh', success);
+            }, function errorCallback() {
+                App
+            });
         }
         function clearData() {
             vm.similarMoviesList = [];

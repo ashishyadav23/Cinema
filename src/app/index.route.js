@@ -17,7 +17,7 @@
         controller: 'ArtistController',
         controllerAs: 'vm'
       })
-      .when('/tvshows', {
+      .when('/tvshows/:key', {
         templateUrl: 'app/tvshows/tvshows.html',
         controller: 'TvShowsController',
         controllerAs: 'vm'
@@ -32,16 +32,21 @@
       //   controller: 'PeopleController',
       //   controllerAs: 'vm'
       // })
-      // .when('/Tvshows', {
-      //   templateUrl: 'app/AllTvshows/tvshows.html',
-      //   controller: 'TvShowsController',
-      //   controllerAs: 'vm'
-      // })
-      // .when('/Movies', {
-      //   templateUrl: 'app/AllMovies/tvshows.html',
-      //   controller: 'TvShowsController',
-      //   controllerAs: 'vm'
-      // })
+      .when('/genre/:id', {
+        templateUrl: 'app/genres/genre/genre.html',
+        controller: 'GenreController',
+        controllerAs: 'vm'
+      })
+      .when('/Tvshows', {
+        templateUrl: 'app/AllTvshows/alltvshows.html',
+        controller: 'AllTvshowsController',
+        controllerAs: 'vm'
+      })
+      .when('/Movies', {
+        templateUrl: 'app/AllMovies/allmovies.html',
+        controller: 'AllMoviesController',
+        controllerAs: 'vm'
+      })
       .otherwise({
         redirectTo: '/'
       });

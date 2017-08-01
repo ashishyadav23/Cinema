@@ -3,7 +3,7 @@
     angular.module('cinema')
         .controller('TvShowsWikiController', TvShowsWikiController);
     /** @ngInject */
-    function TvShowsWikiController(tmdbTV, CinemaService, $location, $rootScope, $sce, $filter, $timeout, ArtistService) {
+    function TvShowsWikiController(tmdbTV, $scope, CinemaService, $location, $rootScope, $sce, $filter, $timeout, ArtistService, $routeParams, $route) {
         var vm = this;
         init();
         var param = {
@@ -12,17 +12,38 @@
         };
 
         function init() {
-            vm.openArtistWiki = openArtistWiki;
-            vm.similarTvSwiper = similarTvSwiper;
-            vm.renderHtml = renderHtml;
-            clearList();
-            $rootScope.direction = 1;
-            vm.onReadySwiper = function (swiper) {
-                swiper.initObservers();
+            if (!CinemaService.collection.selectedTv) {
+                getTvshowDetailsById($routeParams.id);
+            } else {
+                vm.openArtistWiki = openArtistWiki;
+                vm.similarTvSwiper = similarTvSwiper;
+                vm.renderHtml = renderHtml;
+                clearList();
+                $rootScope.direction = 1;
+                vm.onReadySwiper = function (swiper) {
+                    swiper.initObservers();
+                }
+                vm.selectedTv = CinemaService.collection.selectedTv;
+                $rootScope.headerTitle = vm.selectedTv.original_name;
+                loadVm();
             }
-            vm.selectedTv = CinemaService.collection.selectedTv;
-            $rootScope.headerTitle = vm.selectedTv.original_name;
-            loadVm();
+
+        }
+
+        $scope.$on('refresh', function () {
+            init();
+        })
+
+        function getTvshowDetailsById(id) {
+            tmdbTV.tv.details(id, param, function successCallback(success) {
+                if (success.hasOwnProperty('id')) {
+                    CinemaService.collection.setSelectedTv(success);
+                    $scope.$broadcast('refresh', success);
+                }
+
+            }, function errorCallback(error) {
+
+            })
         }
         function clearList() {
             vm.similarTvList = [];
@@ -113,7 +134,7 @@
                 vm.selectedTv = data;
                 $rootScope.headerTitle = vm.selectedTv.original_name;
                 CinemaService.collection.setSelectedTv(data);
-                loadTvShowsDetails();
+                loadTvShowsDetails();                // $route.reload();
             }, 100);
 
         }
@@ -179,6 +200,7 @@
         }
 
         function openArtistWiki(artist) {
+            console.log("artist", artist);
             ArtistService.setSelectedArtist(artist);
             $location.path('/artist');
         }

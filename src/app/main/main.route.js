@@ -12,12 +12,12 @@
                 controller: 'SeeAllListController',
                 controllerAs: 'vm'
             })
-            .when('/tvShowsWiki', {
+            .when('/tvShowsWiki/:id', {
                 templateUrl: 'app/tvShowsWiki/tvShowsWiki.html',
                 controller: 'TvShowsWikiController',
                 controllerAs: 'vm'
             })
-            .when('/movieWiki', {
+            .when('/movieWiki/:id', {
                 templateUrl: 'app/movieWiki/movieWiki.html',
                 controller: 'MovieWikiController',
                 controllerAs: 'vm'

@@ -49,9 +49,10 @@
         </div>
 
       </md-toolbar>
-      <md-content layout-padding>
+      <md-content>
         <md-list>
-          <md-list-item ng-repeat=" item in vm.drawerList" ng-click="vm.onDrawerItemClick(item.id)" ng-class="{'selectedColor':item.isSelected}">
+          <md-list-item ng-repeat=" item in vm.drawerList" ng-click="vm.onDrawerItemClick(item.id)" ng-class="{'selectedColor':item.isSelected}"
+            ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
             <div layout="row" flex>
               <div flex="20">
                 <i class="material-icons">{{item.image}}</i>
@@ -82,8 +83,6 @@
         <span flex></span>
       </div>
     </md-toolbar>
-
-
 
     <md-content layout="row" flex style="height: 100%">
       <div class="content" ng-view flex></div>

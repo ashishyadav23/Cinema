@@ -4,9 +4,9 @@
         .directive('cinemaSwiper', cinemaSwiper)
         .directive('cinemaTv', cinemaTv);
     /**@nginject*/
-    function cinemaSwiper($log, $timeout) {
+    function cinemaSwiper($log, $timeout, $window) {
         return {
-            restrict: 'E',
+            restrict: 'EA',
             templateUrl: 'app/cinemaDirective/carousel/cinemaSwiper.html',
             scope: {
                 data: '=',
@@ -17,14 +17,21 @@
         }
         //link function
         function linkMovie(scope, element, attr) {
-
+            console.log(scope.data);
+            if ($window.screen.width <= 414) {
+                scope.slidesPerView = 3;
+                scope.shownavButton = false;
+            } else {
+                scope.slidesPerView = 6;
+                scope.shownavButton = true;
+            }
             scope.onReadySwiper = scope.events;
             scope.swiperClick = scope.swiperClick;
         }
     };
 
     /**@nginject */
-    function cinemaTv($log, $timeout) {
+    function cinemaTv($log, $timeout, $window) {
         return {
             restrict: 'E',
             templateUrl: 'app/cinemaDirective/carousel/cinemaTvSwiper.html',
@@ -37,14 +44,14 @@
         }
         //link function
         function linkTv(scope, element, attr) {
-            // scope.$watch('data', function (newValue, oldValue) {
-            //     angular.forEach(newValue, function (value, key) {
-            //         if (value.poster_path == null) {
-            //             newValue[key].poster_path = '';
-            //             scope.data = newValue;
-            //         }
-            //     });
-            // })
+            if ($window.screen.width <= 414) {
+                scope.slidesPerView = 3;
+                scope.shownavButton = false;
+            } else {
+                scope.slidesPerView = 6;
+                scope.shownavButton = true;
+            }
+
             scope.onReadySwiper = scope.events;
 
             scope.swiperClick = scope.swiperClick;

@@ -6,7 +6,7 @@
         .controller('TvShowsController', TvShowsController);
 
     /** @ngInject */
-    function TvShowsController(tmdbMovie, tmdbTV, tmdbApiKey, CinemaService, TvShowService, $location, $rootScope) {
+    function TvShowsController(tmdbMovie, $scope, tmdbTV, tmdbApiKey, CinemaService, TvShowService, $location, $rootScope, $routeParams) {
         var vm = this;
         tmdbMovie.setup(tmdbApiKey, true);
         var param = {
@@ -17,41 +17,52 @@
         init();
         function init() {
 
-            /**TV shows  */
+            if (!CinemaService.collection.currentNavItem) {
+                $scope.$broadcast('refresh', $routeParams.key);
 
-            vm.popularTvShows = [];
-            vm.ontheAirShows = [];
-            vm.arrivingShows = [];
-            vm.topRatedShows = [];
-            vm.currentNavItem = CinemaService.collection.currentNavItem;
-            vm.navbarClick = navbarClick;
-            $rootScope.headerTitle = "Dashboard";
-            $rootScope.direction = 0;
-            loadAllShowsData();
-            initiliazeSwiper();
+            } else {
+                /**TV shows  */
 
-            // if (window.cordova) {
-            var admobid = {};
-            if (/(android)/i.test(navigator.userAgent)) { // for android & amazon-fireos
-                admobid = {
-                    banner: 'ca-app-pub-xxx/xxx', // or DFP format "/6253334/dfp_example_ad"
-                    interstitial: 'ca-app-pub-xxx/yyy'
-                };
-                console.log(1);
-            } else if (/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
-                admobid = {
-                    banner: 'ca-app-pub-xxx/zzz', // or DFP format "/6253334/dfp_example_ad"
-                    interstitial: 'ca-app-pub-xxx/kkk'
-                };
-                console.log(2);
-            } else { // for windows phone
-                admobid = {
-                    banner: 'ca-app-pub-xxx/zzz', // or DFP format "/6253334/dfp_example_ad"
-                    interstitial: 'ca-app-pub-xxx/kkk'
-                };
-                console.log(3);
+                vm.popularTvShows = [];
+                vm.ontheAirShows = [];
+                vm.arrivingShows = [];
+                vm.topRatedShows = [];
+                vm.currentNavItem = CinemaService.collection.currentNavItem;
+                vm.navbarClick = navbarClick;
+                $rootScope.headerTitle = "Dashboard";
+                $rootScope.direction = 0;
+                loadAllShowsData();
+                initiliazeSwiper();
+
+                // if (window.cordova) {
+                var admobid = {};
+                if (/(android)/i.test(navigator.userAgent)) { // for android & amazon-fireos
+                    admobid = {
+                        banner: 'ca-app-pub-xxx/xxx', // or DFP format "/6253334/dfp_example_ad"
+                        interstitial: 'ca-app-pub-xxx/yyy'
+                    };
+                    console.log(1);
+                } else if (/(ipod|iphone|ipad)/i.test(navigator.userAgent)) { // for ios
+                    admobid = {
+                        banner: 'ca-app-pub-xxx/zzz', // or DFP format "/6253334/dfp_example_ad"
+                        interstitial: 'ca-app-pub-xxx/kkk'
+                    };
+                    console.log(2);
+                } else { // for windows phone
+                    admobid = {
+                        banner: 'ca-app-pub-xxx/zzz', // or DFP format "/6253334/dfp_example_ad"
+                        interstitial: 'ca-app-pub-xxx/kkk'
+                    };
+                    console.log(3);
+                }
             }
+
         }
+
+        $scope.$on('refresh', function (data) {
+            CinemaService.collection.currentNavItem = data;
+            init();
+        })
 
         function loadAllShowsData() {
             getpopularTv();
@@ -100,10 +111,10 @@
 
         vm.opentvShowsWiki = function (show) {
             CinemaService.collection.setSelectedTv(show);
-            $location.path('tvShowsWiki');
+            $location.path('tvShowsWiki/' + show.id);
         };
 
-        vm.openSeeAll = function (dataList,sets) {
+        vm.openSeeAll = function (dataList, sets) {
             CinemaService.collection.selectedSeeAllType = 1;
             CinemaService.collection.setSeeAllTvShows(dataList);
             $rootScope.headerTitle = sets;

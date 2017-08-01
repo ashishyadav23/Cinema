@@ -1,32 +1,49 @@
-<div layout="column" style="margin-top:10px;">
-    <md-content class="gradient">
-        <md-grid-list md-cols-gt-md="3" md-cols-md="3" md-cols-sm="2" md-gutter="1px" md-row-height="1:1.7" md-row-height-lg="1:1.5"
-            md-cols="2" ng-if="vm.type==1">
-            <md-grid-tile ng-repeat="tv in vm.seeAllList" id="view">
+<!--<div layout="column" style="margin-top:0px;">-->
+<md-content class="gradient" ng-if="vm.seeAllList.length>0">
+    <div flex>
+        <md-input-container class="md-block" flex>
+            <label>Filter movies</label>
+            <input ng-model="vm.searchQuery">
+        </md-input-container>
+    </div>
+    <div>
+        <md-grid-list md-cols-gt-md="5" md-cols-md="4" md-cols-sm="3" md-gutter="3px" md-row-height="1:1.7" md-row-height-lg="1:1.5"
+            md-cols="3" ng-if="vm.type==1">
+            <md-grid-tile ng-repeat="tv in vm.seeAllList.list | filter:vm.searchQuery track by tv.id+tv.poster_path " id="view">
                 <md-card style="width:100%;" ng-click="vm.openTvWiki(tv)">
-                    <img style="width:100%;height:100%;" ng-src="https://image.tmdb.org/t/p/w640/{{tv.poster_path}}" class="md-card-image md-avatar"
-                        aria-label="{{tv.name}}" alt="{{tv.name}}">
+                    <div ng-if="tv.poster_path!=null && tv.poster_path!='' && tv.poster_path!=undefined">
+                        <img class="background" style="width:100%;height:100%;" ng-src="https://image.tmdb.org/t/p/w640/{{tv.poster_path}}" class="md-card-image md-avatar"
+                            aria-label="{{tv.name}}">
+                    </div>
+                    <img ng-if="tv.poster_path==null || tv.poster_path=='' || tv.poster_path=='undefined' " class="md-card-image placeholder"
+                        class="md-avatar" aria-label="{{tv.title}}" />
                     <md-card-content>
                         <span>{{tv.name}}</span> (<span flex="10">{{tv.vote_average}}</span>)
                     </md-card-content>
                 </md-card>
             </md-grid-tile>
         </md-grid-list>
-        <md-grid-list md-cols-gt-md="3" md-cols-md="3" md-cols-sm="2" md-gutter="1px" md-row-height="1:1.7" md-row-height-lg="1:1.5"
-            md-cols="2" ng-if="vm.type==0">
-            <md-grid-tile ng-repeat="movie in vm.seeAllList" id="view">
+        <md-grid-list md-cols-gt-md="5" md-cols-md="4" md-cols-sm="3" md-gutter="3px" md-row-height="1:1.7" md-row-height-lg="1:1.5"
+            md-cols="3" ng-if="vm.type==0">
+            <md-grid-tile ng-repeat="movie in vm.seeAllList.list | filter:vm.searchQuery track by movie.id+movie.poster_path" id="view">
                 <md-card style="width:100%;" ng-click="vm.openMovieWiki(movie)">
-                    <img style="width:100%;height:100%;" ng-src="https://image.tmdb.org/t/p/w640/{{movie.poster_path}}" class="md-card-image md-avatar"
-                        aria-label="{{movie.original_title}}" alt="{{movie.original_title}}">
+                    <div ng-if="movie.poster_path!=null && movie.poster_path!='' && movie.poster_path!=undefined">
+                        <img style="width:100%;height:100%;" ng-src="https://image.tmdb.org/t/p/w640/{{movie.poster_path}}" class="md-card-image md-avatar"
+                            aria-label="{{movie.original_title}}">
+                    </div>
+
+                    <img ng-if="movie.poster_path==null || movie.poster_path=='' || movie.poster_path==undefined" class="md-card-image placeholder"
+                        class="md-avatar" aria-label="{{movie.title}}" />
                     <md-card-content>
-                        <span>{{movie.original_title}}</span> (<span flex="10">{{movie.vote_average}}</span>)
+                        <span>{{movie.title}}</span> (<span flex="10">{{movie.vote_average}}</span>)
                     </md-card-content>
                 </md-card>
             </md-grid-tile>
         </md-grid-list>
-    </md-content>
+    </div>
+</md-content>
 
-</div>
+<!--</div>-->
 
 <style>
     md-card md-card-content {
@@ -38,6 +55,11 @@
     md-grid-list md-grid-tile {
         display: block;
         position: absolute;
-        padding: 50px !important;
+        /*padding: 50px !important;*/
+    }
+    
+    md-input-container {
+        margin: 0px !important;
+        padding: 0px !important;
     }
 </style>
