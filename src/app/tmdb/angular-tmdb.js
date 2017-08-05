@@ -1,5 +1,5 @@
 /* global angular */
-var storage = angular.module('tmdb', [])
+angular.module('tmdb', [])
 
     .value('TMDB', {
         "API_KEY": undefined,
@@ -157,10 +157,10 @@ var storage = angular.module('tmdb', [])
                     if (onSuccess !== undefined)
                         onSuccess(data, status, headers, config);
                 }).
-                error(function (data, status, headers, config) {
-                    if (onError !== undefined)
-                        onError(data, status, headers, config);
-                });
+            error(function (data, status, headers, config) {
+                if (onError !== undefined)
+                    onError(data, status, headers, config);
+            });
         }
 
         this.translations = function (id, params, onSuccess, onError) {

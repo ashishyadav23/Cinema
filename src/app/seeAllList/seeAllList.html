@@ -1,5 +1,5 @@
 <!--<div layout="column" style="margin-top:0px;">-->
-<md-content class="gradient" ng-if="vm.seeAllList.length>0">
+<md-content class="gradient" ng-if="vm.seeAllList.list.length>0">
     <div flex>
         <md-input-container class="md-block" flex>
             <label>Filter movies</label>
@@ -9,8 +9,9 @@
     <div>
         <md-grid-list md-cols-gt-md="5" md-cols-md="4" md-cols-sm="3" md-gutter="3px" md-row-height="1:1.7" md-row-height-lg="1:1.5"
             md-cols="3" ng-if="vm.type==1">
-            <md-grid-tile ng-repeat="tv in vm.seeAllList.list | filter:vm.searchQuery track by tv.id+tv.poster_path " id="view">
-                <md-card style="width:100%;" ng-click="vm.openTvWiki(tv)">
+            <md-grid-tile ng-repeat="tv in vm.seeAllList.list | filter:vm.searchQuery | orderBy:'-vote_average' track by tv.id+tv.poster_path "
+                id="view">
+                <md-card style="width:100%;" ng-click="vm.openTvWiki(tv)">`
                     <div ng-if="tv.poster_path!=null && tv.poster_path!='' && tv.poster_path!=undefined">
                         <img class="background" style="width:100%;height:100%;" ng-src="https://image.tmdb.org/t/p/w640/{{tv.poster_path}}" class="md-card-image md-avatar"
                             aria-label="{{tv.name}}">
@@ -18,14 +19,15 @@
                     <img ng-if="tv.poster_path==null || tv.poster_path=='' || tv.poster_path=='undefined' " class="md-card-image placeholder"
                         class="md-avatar" aria-label="{{tv.title}}" />
                     <md-card-content>
-                        <span>{{tv.name}}</span> (<span flex="10">{{tv.vote_average}}</span>)
+                        <span>{{tv.name | limitTo:12}}{{tv.name>14?'...':''}}</span> (<span flex="10">{{tv.vote_average}}</span>)
                     </md-card-content>
                 </md-card>
             </md-grid-tile>
         </md-grid-list>
         <md-grid-list md-cols-gt-md="5" md-cols-md="4" md-cols-sm="3" md-gutter="3px" md-row-height="1:1.7" md-row-height-lg="1:1.5"
             md-cols="3" ng-if="vm.type==0">
-            <md-grid-tile ng-repeat="movie in vm.seeAllList.list | filter:vm.searchQuery track by movie.id+movie.poster_path" id="view">
+            <md-grid-tile ng-repeat="movie in vm.seeAllList.list | filter:vm.searchQuery | orderBy:'-vote_average' track by movie.id+movie.poster_path"
+                id="view">
                 <md-card style="width:100%;" ng-click="vm.openMovieWiki(movie)">
                     <div ng-if="movie.poster_path!=null && movie.poster_path!='' && movie.poster_path!=undefined">
                         <img style="width:100%;height:100%;" ng-src="https://image.tmdb.org/t/p/w640/{{movie.poster_path}}" class="md-card-image md-avatar"
@@ -35,7 +37,7 @@
                     <img ng-if="movie.poster_path==null || movie.poster_path=='' || movie.poster_path==undefined" class="md-card-image placeholder"
                         class="md-avatar" aria-label="{{movie.title}}" />
                     <md-card-content>
-                        <span>{{movie.title}}</span> (<span flex="10">{{movie.vote_average}}</span>)
+                        <span>{{movie.title |limitTo:12}}{{movie.title.length>14?'...':''}}</span> (<span flex="10">{{movie.vote_average}}</span>)
                     </md-card-content>
                 </md-card>
             </md-grid-tile>

@@ -7,7 +7,7 @@
 
     function routeConfig($routeProvider) {
         $routeProvider
-            .when('/seeAllList', {
+            .when('/seeAllList/:type/:status', {
                 templateUrl: 'app/seeAllList/seeAllList.html',
                 controller: 'SeeAllListController',
                 controllerAs: 'vm'

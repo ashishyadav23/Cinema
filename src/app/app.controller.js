@@ -1,6 +1,7 @@
+var app = angular.module('cinema');
+
 (function () {
-    angular.module('cinema')
-        .controller('IndexController', IndexController);
+    app.controller('IndexController', IndexController);
     /**@ngInjcet */
     function IndexController($rootScope, $window, AppFactory) {
         var vm = this;
@@ -50,4 +51,4 @@
 
     }
 
-})();
+})(app);

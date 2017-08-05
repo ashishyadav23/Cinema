@@ -10,7 +10,6 @@
       'ksSwiper',
       'ngAnimate',
       'ngAria',
-      'ngMessages',
-      'infinite-scroll'
+      'ngMessages'
     ])
 })();

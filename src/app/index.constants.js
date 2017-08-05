@@ -9,4 +9,4 @@
     .constant('tmdbApiKey', "6012abc907d2538d2c30179cb48b46b0");
 
 
-})();
+})()

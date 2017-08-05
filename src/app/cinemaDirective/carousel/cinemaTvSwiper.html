@@ -1,7 +1,7 @@
-<div ng-if="data.length>0">
+<div ng-if="data.list.length>0">
     <ks-swiper-container swiper="swiper" on-ready="onReadySwiper(swiper)" initial-slide="0" loop="false" show-nav-buttons="shownavButton"
         slides-per-view="slidesPerView" space-between="10" pagination-clickable="false" freeMode="true">
-        <ks-swiper-slide class="swiper-slide" ng-repeat="slide in data | orderBy:'-vote_average'" ng-click="swiperClick({data:slide})">
+        <ks-swiper-slide class="swiper-slide" ng-repeat="slide in data.list | orderBy:'-vote_average' track by slide.id" ng-click="swiperClick({data:slide})">
             <div layout="column">
                 <div>
 

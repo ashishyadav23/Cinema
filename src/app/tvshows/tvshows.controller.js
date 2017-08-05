@@ -13,6 +13,12 @@
             "language": "en-US",
             "page": 1
         };
+        var pageCount = {
+            "arrivingStatus": false,
+            "popularStatus": false,
+            "topRatedStatus": false,
+            "onTheAirStatus": false
+        }
 
         init();
         function init() {
@@ -23,10 +29,26 @@
             } else {
                 /**TV shows  */
 
-                vm.popularTvShows = [];
-                vm.ontheAirShows = [];
-                vm.arrivingShows = [];
-                vm.topRatedShows = [];
+                vm.popularTvShows = {
+                    "page": "",
+                    "totalPage": "",
+                    "list": []
+                };
+                vm.ontheAirShows = {
+                    "page": "",
+                    "totalPage": "",
+                    "list": []
+                };
+                vm.arrivingShows = {
+                    "page": "",
+                    "totalPage": "",
+                    "list": []
+                };
+                vm.topRatedShows = {
+                    "page": "",
+                    "totalPage": "",
+                    "list": []
+                };
                 vm.currentNavItem = CinemaService.collection.currentNavItem;
                 vm.navbarClick = navbarClick;
                 $rootScope.headerTitle = "Dashboard";
@@ -79,32 +101,45 @@
             vm.popularShowsSwiper = function (swiper) {
                 swiper.initObservers();
                 swiper.on('onReachEnd', function () {
-                    param.page++;
-                    getpopularTv(param);
+                    if (vm.popularTvShows.page < vm.popularTvShows.totalPage && pageCount.popularStatus) {
+                        pageCount.popularStatus = false;
+                        param.page = angular.copy(vm.popularTvShows.page) + 1;
+                        getpopularTv(param);
+                    }
+
                 });
             };
 
             vm.topRatedShowsSwiper = function (swiper) {
                 swiper.initObservers();
                 swiper.on('onReachEnd', function () {
-                    param.page++;
-                    getTopRatedShows(param);
+                    if (vm.topRatedShows.page < vm.topRatedShows.totalPage && pageCount.topRatedStatus) {
+                        pageCount.topRatedStatus = false;
+                        param.page = angular.copy(vm.topRatedShows.page) + 1;
+                        getTopRatedShows(param);
+                    }
                 });
             };
 
             vm.ontheAirShowsSwiper = function (swiper) {
                 swiper.initObservers();
                 swiper.on('onReachEnd', function () {
-                    param.page++;
-                    getOnTheAirShows(param);
+                    if (vm.ontheAirShows.page < vm.ontheAirShows.totalPage && pageCount.onTheAirStatus) {
+                        pageCount.onTheAirStatus = false;
+                        param.page = angular.copy(vm.ontheAirShows.page) + 1;
+                        getOnTheAirShows(param);
+                    }
                 });
             };
 
             vm.arrivingShowsSwiper = function (swiper) {
                 swiper.initObservers();
                 swiper.on('onReachEnd', function () {
-                    param.page++;
-                    getArrivingShows(param);
+                    if (vm.arrivingShows.page < vm.arrivingShows.totalPage && pageCount.arrivingStatus) {
+                        pageCount.arrivingStatus = false;
+                        param.page = angular.copy(vm.arrivingShows.page) + 1;
+                        getArrivingShows(param);
+                    }
                 });
             };
         }
@@ -114,11 +149,22 @@
             $location.path('tvShowsWiki/' + show.id);
         };
 
-        vm.openSeeAll = function (dataList, sets) {
+        vm.openSeeAll = function (dataList, headerTitle, params) {
+            var jsonObject = {
+                "type": params,
+                "status": 1
+            }
             CinemaService.collection.selectedSeeAllType = 1;
             CinemaService.collection.setSeeAllTvShows(dataList);
-            $rootScope.headerTitle = sets;
-            $location.path('/seeAllList');
+            $rootScope.headerTitle = headerTitle;
+            $location.path('/seeAllList/' + params+"/"+1);
+
+        }
+        function setterData(request, response) {
+            request.page = response.page;
+            request.list = request.list.concat(response.results);
+            request.totalPage = response.total_pages;
+            return request;
 
         }
 
@@ -127,7 +173,8 @@
                 function success(success) {
                     if (success.hasOwnProperty('results')) {
                         if (success.results.length > 0) {
-                            vm.popularTvShows = vm.popularTvShows.concat(success.results);
+                            pageCount.popularStatus = true;
+                            vm.popularTvShows = setterData(vm.popularTvShows, success);
                         }
                     }
                 }, function error() {
@@ -140,7 +187,8 @@
                 function success(success) {
                     if (success.hasOwnProperty('results')) {
                         if (success.results.length > 0) {
-                            vm.topRatedShows = vm.topRatedShows.concat(success.results);
+                            pageCount.topRatedStatus = true;
+                            vm.topRatedShows = setterData(vm.topRatedShows, success);
                         }
                     }
                 }, function error() {
@@ -153,7 +201,8 @@
                 function success(success) {
                     if (success.hasOwnProperty('results')) {
                         if (success.results.length > 0) {
-                            vm.ontheAirShows = vm.ontheAirShows.concat(success.results);
+                            pageCount.onTheAirStatus = true;
+                            vm.ontheAirShows = setterData(vm.ontheAirShows, success);
                         }
                     }
                 }, function error() {
@@ -166,7 +215,8 @@
                 function success(success) {
                     if (success.hasOwnProperty('results')) {
                         if (success.results.length > 0) {
-                            vm.arrivingShows = vm.arrivingShows.concat(success.results);
+                            pageCount.arrivingStatus = true;
+                            vm.arrivingShows = setterData(vm.arrivingShows, success);
                         }
                     }
                 }, function error() {

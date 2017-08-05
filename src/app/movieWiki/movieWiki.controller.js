@@ -6,15 +6,20 @@
         .controller('MovieWikiController', MovieWikiController);
 
     /** @ngInject */
-    function MovieWikiController(tmdbMovie, CinemaService, $scope, $rootScope, $timeout, $filter, $sce, $location, ArtistService, $routeParams) {
+    function MovieWikiController(tmdbMovie, CinemaService, $scope, $rootScope, $timeout, $filter, $sce, $location, ArtistService, $routeParams,$route) {
         var vm = this;
         var param = {
             "language": "en-US",
             "page": 1
         };
+        var pageCount = {
+            "recommendStatus": false,
+            "similarStatus": false
+        }
         init();
 
         function init() {
+
             if (!CinemaService.collection.selectedMovie) {
                 getMovieDetailsById($routeParams.id);
             } else {
@@ -36,7 +41,7 @@
         });
 
         function openGenre(genre) {
-            
+
         }
 
         function getMovieDetailsById(id) {
@@ -48,8 +53,16 @@
             });
         }
         function clearData() {
-            vm.similarMoviesList = [];
-            vm.recommendMoviesList = [];
+            vm.similarMoviesList = {
+                "page": "",
+                "list": [],
+                "totalPage": ""
+            }
+            vm.recommendMoviesList = {
+                "page": "",
+                "list": [],
+                "totalPage": ""
+            }
             vm.cast = [];
         }
 
@@ -63,12 +76,15 @@
         function getSimilarMovies() {
             tmdbMovie.similar(vm.selectedMovie.id, param,
                 function success(success) {
-
-                    vm.similarMoviesList = getResponseData(success, vm.similarMoviesList);
-                    $timeout(function () {
-                        getVideos();
-                    }, 50);
-
+                    if (success.hasOwnProperty("results")) {
+                        if (success.results.length > 0) {
+                            pageCount.similarStatus = true;
+                            getResponseData(success, vm.similarMoviesList);
+                            $timeout(function () {
+                                getVideos();
+                            }, 50);
+                        }
+                    }
                 }, function error(error) {
                     console.log("error", angular.toJson(error));
                 });
@@ -76,24 +92,23 @@
         }
 
         function getResponseData(requestData, arrayList) {
-            var responseData = [];
-            if (requestData.hasOwnProperty('results')) {
-                if (requestData.results.length > 0) {
-                    responseData = $filter('orderBy')(arrayList.concat(requestData.results), 'vote_average');
-                    return responseData;
-                } else {
-                    arrayList = [];
-                }
-            }
+            arrayList.page = requestData.page;
+            arrayList.totalPage = requestData.total_pages;
+            arrayList.list = arrayList.list.concat(requestData.results);
         }
 
         function getRecommendedMovies() {
             tmdbMovie.recommendations(vm.selectedMovie.id, param,
                 function success(success) {
-                    vm.recommendMoviesList = getResponseData(success, vm.recommendMoviesList);
-                    $timeout(function () {
-                        getVideos();
-                    }, 50);
+                    if (success.hasOwnProperty("results")) {
+                        if (success.results.length > 0) {
+                            pageCount.recommendStatus = true;
+                            getResponseData(success, vm.recommendMoviesList);
+                            $timeout(function () {
+                                getVideos();
+                            }, 50);
+                        }
+                    }
                 }, function error() {
                     console.log("error", angular.toJson(error));
                 });
@@ -105,7 +120,6 @@
                     if (success.hasOwnProperty('id')) {
                         if (success.cast.length > 0) {
                             vm.castList = success.cast;
-                            // vm.castList = $filter('limitTo')(success.cast, 5, 0);
                             getmovieDetails();
                         } else {
                             vm.castList = [];
@@ -165,15 +179,21 @@
         vm.recommendMoviesListSwiper = function (swiper) {
             swiper.initObservers();
             swiper.on('onReachEnd', function () {
-                param.page++;
-                getRecommendedMovies(param);
+                if (vm.recommendMoviesList.page < vm.recommendMoviesList.totalPage && pageCount.recommendStatus) {
+                    pageCount.recommendStatus = false;
+                    param.page = angular.copy(vm.recommendMoviesList.page) + 1;
+                    getRecommendedMovies(param);
+                }
             });
         }
         vm.similarMoviesListSwiper = function (swiper) {
             swiper.initObservers();
             swiper.on('onReachEnd', function () {
-                param.page++;
-                getSimilarMovies(param);
+                if (vm.similarMoviesList.page < vm.similarMoviesList.totalPage && pageCount.similarStatus) {
+                    pageCount.similarStatus = false;
+                    param.page = angular.copy(vm.similarMoviesList.page) + 1;
+                    getSimilarMovies(param);
+                }
             });
         };
 
@@ -184,7 +204,8 @@
 
         function openMovieWiki(response) {
             CinemaService.collection.setSelectedMovie(response);
-            $route.reload();
+            $location.path('/movieWiki/' + response.id);
+            // $route.reload();
         }
 
 

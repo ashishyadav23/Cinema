@@ -15,14 +15,10 @@
       "region": "IN"
     };
     var pageCount = {
-      "upComming": 0,
-      "upcomingStatus": true,
-      "popular": 0,
-      "popularStatus": true,
-      "topRated": 0,
-      "topRatedStatus": true,
-      "nowPlaying": 0,
-      "nowPlayingStatus": true
+      "upcomingStatus": false,
+      "popularStatus": false,
+      "topRatedStatus": false,
+      "nowPlayingStatus": false
     }
 
     init();
@@ -99,8 +95,8 @@
         swiper.initObservers();
         swiper.on('onReachEnd', function () {
           if (vm.upComingMovies.page < vm.upComingMovies.totalPage && pageCount.upcomingStatus) {
-            pageCount.upcoming = false;
-            param.page = vm.upComingMovies.page++;
+            pageCount.upcomingStatus = false;
+            param.page = angular.copy(vm.upComingMovies.page) + 1;
             getUpComingMovies(param);
           }
 
@@ -112,7 +108,7 @@
         swiper.on('onReachEnd', function () {
           if (vm.popularMovies.page < vm.popularMovies.totalPage && pageCount.popularStatus) {
             pageCount.popularStatus = false;
-            param.page = vm.popularMovies.page++;
+            param.page = angular.copy(vm.popularMovies.page) + 1;
             getPopularMovies(param);
           }
 
@@ -124,7 +120,7 @@
         swiper.on('onReachEnd', function () {
           if (vm.topRatedMovies.page < vm.topRatedMovies.totalPage && pageCount.topRatedStatus) {
             pageCount.topRatedStatus = false;
-            param.page = vm.topRatedMovies.page++;
+            param.page = angular.copy(vm.topRatedMovies.page) + 1;
             getTopRatedMovies(param);
 
           }
@@ -137,7 +133,7 @@
         swiper.on('onReachEnd', function () {
           if (vm.nowPlayingMovies.page < vm.nowPlayingMovies.totalPage && pageCount.nowPlayingStatus) {
             pageCount.nowPlayingStatus = false;
-            param.page = vm.nowPlayingMovies.page++;
+            param.page = angular.copy(vm.nowPlayingMovies.page) + 1;
             getNowPlayingMovies(param);
           }
         });
@@ -151,11 +147,11 @@
       $location.path('/movieWiki/' + movie.id);
     };
 
-    vm.openSeeAll = function (dataList, sets) {
+    vm.openSeeAll = function (dataList, headerTitle, params) {
       CinemaService.collection.selectedSeeAllType = 0;
       CinemaService.collection.setSeeAllMovies(dataList);
-      $rootScope.headerTitle = sets;
-      $location.path('/seeAllList');
+      $rootScope.headerTitle = headerTitle;
+      $location.path('/seeAllList/' + params + "/" + 0);
 
     }
 
@@ -172,7 +168,6 @@
           if (success.hasOwnProperty('results')) {
             if (success.results.length > 0) {
               pageCount.popularStatus = true;
-              pageCount.popular = success.page;
               vm.popularMovies = setterData(vm.popularMovies, success);
             }
           }
@@ -186,10 +181,8 @@
         function success(success) {
           if (success.hasOwnProperty('results')) {
             if (success.results.length > 0) {
-              pageCount.topRated = success.page;
               pageCount.topRatedStatus = true;
               vm.topRatedMovies = setterData(vm.topRatedMovies, success);
-
             }
           }
         }, function error() {
@@ -201,10 +194,8 @@
         function success(success, status, header) {
           if (success.hasOwnProperty('results')) {
             if (success.results.length > 0) {
-              pageCount.upComming = success.page;
               pageCount.upcomingStatus = true;
               vm.upComingMovies = setterData(vm.upComingMovies, success);
-
             }
           }
         }, function error() {
@@ -216,11 +207,8 @@
         function success(success, status, header) {
           if (success.hasOwnProperty('results')) {
             if (success.results.length > 0) {
-              pageCount.nowPlaying = success.page;
               pageCount.nowPlayingStatus = true;
               vm.nowPlayingMovies = setterData(vm.nowPlayingMovies, success);
-
-
             }
           }
         }, function error() {
