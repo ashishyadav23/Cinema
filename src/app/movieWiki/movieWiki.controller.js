@@ -6,7 +6,7 @@
         .controller('MovieWikiController', MovieWikiController);
 
     /** @ngInject */
-    function MovieWikiController(tmdbMovie, CinemaService, $scope, $rootScope, $timeout, $filter, $sce, $location, ArtistService, $routeParams,$route) {
+    function MovieWikiController(tmdbMovie, CinemaService, $scope, $rootScope, $timeout, $filter, $sce, $location, ArtistService, $routeParams, $route) {
         var vm = this;
         var param = {
             "language": "en-US",
@@ -49,7 +49,6 @@
                 CinemaService.collection.setSelectedMovie(success);
                 $scope.$broadcast('refresh', success);
             }, function errorCallback() {
-                App
             });
         }
         function clearData() {
@@ -72,6 +71,14 @@
             getRecommendedMovies();
         }
 
+        vm.timeConvert = function (n) {
+            var num = n;
+            var hours = (num / 60);
+            var rhours = Math.floor(hours);
+            var minutes = (hours - rhours) * 60;
+            var rminutes = Math.round(minutes);
+            return rhours + " hour(s) and " + rminutes + " minute(s).";
+        }
 
         function getSimilarMovies() {
             tmdbMovie.similar(vm.selectedMovie.id, param,
@@ -212,7 +219,7 @@
         function openArtistWiki(artist) {
             console.log("Artist", angular.toJson(artist));
             ArtistService.setSelectedArtist(artist);
-            $location.path('/artist');
+            $location.path('/artist/' + artist.id);
         }
 
 

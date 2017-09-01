@@ -3,7 +3,7 @@
     angular.module('cinema')
         .controller('ArtistController', ArtistController);
     /** @ngInject */
-    function ArtistController(tmdbTV, CinemaService, $location, $rootScope, $sce, $filter, ArtistService, tmdbMovie) {
+    function ArtistController(tmdbTV, CinemaService, $location, $rootScope, $sce, $filter, ArtistService, tmdbMovie, $scope, $routeParams) {
         var vm = this;
         var param = {
             "language": "en-US",
@@ -13,14 +13,33 @@
         init();
 
         function init() {
-            vm.artistBio = "";
-            vm.artistMovies = [];
-            vm.selectedArtist = ArtistService.getSelectedArtist();
-            console.log("SelectedArtist", vm.selectedArtist);
-
-            if (angular.isDefined(vm.selectedArtist)) {
-                loadData();
+            if (!ArtistService.selectedArtist) {
+                getArtistDetailsById($routeParams.id);
+            } else {
+                vm.artistBio = "";
+                vm.artistMovies = {
+                    "page": "",
+                    "list": [],
+                    "totalPage": ""
+                };
+                vm.selectedArtist = ArtistService.getSelectedArtist();
+                console.log("SelectedArtist", vm.selectedArtist);
+                if (angular.isDefined(vm.selectedArtist)) {
+                    loadData();
+                }
             }
+        }
+
+        $scope.$on('refresh', function ($event, data) {
+            init();
+        });
+
+        function getArtistDetailsById(id) {
+            tmdbMovie.getArtistById(id, param, function successCallback(success) {
+                ArtistService.setSelectedArtist(success);
+                $scope.$broadcast('refresh', success);
+            }, function errorCallback() {
+            });
         }
 
         vm.artistMoviesSwiper = function (swiper) {
@@ -35,10 +54,6 @@
             getmovies();
             getTvShows();
             getBio();
-        }
-
-        function getArtistDetailsById(id) {
-
         }
 
         function getmovies() {

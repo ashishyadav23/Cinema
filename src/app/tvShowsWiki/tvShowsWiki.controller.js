@@ -10,6 +10,9 @@
             "language": "en-US",
             "page": 1
         };
+        var pageCount = {
+            "similarTvShowsStatus": false
+        }
 
         function init() {
             if (!CinemaService.collection.selectedTv) {
@@ -18,6 +21,11 @@
                 vm.openArtistWiki = openArtistWiki;
                 vm.similarTvSwiper = similarTvSwiper;
                 vm.renderHtml = renderHtml;
+                vm.similarTvShows = {
+                    "page": "",
+                    "totalPage": "",
+                    "list": []
+                };
                 clearList();
                 $rootScope.direction = 1;
                 vm.onReadySwiper = function (swiper) {
@@ -46,7 +54,11 @@
             })
         }
         function clearList() {
-            vm.similarTvList = [];
+            vm.similarTvShows = {
+                "page": "",
+                "list": [],
+                "totalPage": ""
+            }
             vm.castList = [];
             vm.selectedTvVideos = [];
             vm.showDetail = {};
@@ -60,22 +72,43 @@
         function loadTvShowsDetails() {
             getShowDetails(vm.selectedTv.original_name);
             getSeasonsData();
-            getSimilarTv();
+            getSimilarTv(param);
             getselectedTvVideos();
             getSelectedTvCast();
         }
 
-        function getSimilarTv() {
+        function getSimilarTv(param) {
             tmdbTV.tv.similar(vm.selectedTv.id, param,
                 function success(success) {
                     if (success.hasOwnProperty('results')) {
                         if (success.results.length > 0) {
-                            vm.similarTvList = vm.similarTvList.concat(success.results);
+                            pageCount.similarTvShowsStatus = true;
+                            vm.similarTvShows = setterData(vm.similarTvShows, success);
                         }
                     }
                 }, function error() {
                     console.log("error", angular.toJson(error));
                 });
+        }
+        vm.timeConvert = function (n) {
+            var num = n;
+            var hours = (num / 60);
+            var rhours = Math.floor(hours);
+            var minutes = (hours - rhours) * 60;
+            var rminutes = Math.round(minutes);
+            if (rminutes == 0) {
+                return rhours + " hrs"
+            } else {
+                return rhours + " hrs" + rminutes + " mins.";
+            }
+
+        }
+
+        function setterData(request, response) {
+            request.page = response.page;
+            request.list = request.list.concat(response.results);
+            request.totalPage = response.total_pages;
+            return request;
         }
 
         function getselectedTvVideos() {
@@ -122,6 +155,11 @@
         function similarTvSwiper(swiper) {
             swiper.initObservers();
             swiper.on('onReachEnd', function () {
+                if (vm.similarTvShows.page < vm.similarTvShows.totalPage && pageCount.similarTvShowsStatus) {
+                    pageCount.similarTvShowsStatus = false;
+                    param.page = angular.copy(vm.arrivingShows.page) + 1;
+                    getArrivingShows(param);
+                }
                 param.page++;
                 getSimilarTv(param);
             });
@@ -202,7 +240,7 @@
         function openArtistWiki(artist) {
             console.log("artist", artist);
             ArtistService.setSelectedArtist(artist);
-            $location.path('/artist');
+            $location.path('/artist/' + artist.id);
         }
 
     }

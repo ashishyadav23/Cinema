@@ -89,7 +89,7 @@
                                 <md-divider ng-if="vm.showDetail.runtime"></md-divider>
                                 <div layout="row" flex>
                                     <span flex="50">Running time:</span>
-                                    <span flex="50" style="text-align:center;">{{vm.showDetail.runtime}} min</span>
+                                    <span flex="50" style="text-align:center;">{{vm.timeConvert(vm.showDetail.runtime)}}</span>
                                 </div>
                                 <md-divider ng-if="vm.showDetail.days[0]"></md-divider>
                                 <div layout="row" flex ng-if="vm.showDetail.days">
@@ -99,12 +99,12 @@
                                 <md-divider ng-if="vm.showDetail.webChannel"></md-divider>
                                 <div layout="row" flex ng-if="vm.showDetail.webChannel">
                                     <span flex="50">WebChannel:</span>
-                                    <span flex="50" style="text-align:center;">{{vm.showDetail.webChannel.name!''?vm.showDetail.webChannel.name:'Unknown'}}</span>
+                                    <span flex="50" style="text-align:center;">{{vm.showDetail.webChannel.name!=''?vm.showDetail.webChannel.name:'Unknown'}}</span>
                                 </div>
                                 <md-divider ng-if="vm.showDetail.webChannel"></md-divider>
                                 <div layout="row" flex ng-if="vm.showDetail.webChannel">
                                     <span flex="50">Seasons:</span>
-                                    <span flex="50" style="text-align:center;">{{vm.showDetail.webChannel.name!''?vm.showDetail.webChannel.name:'Unknown'}}</span>
+                                    <span flex="50" style="text-align:center;">{{vm.showDetail.webChannel.name!=''?vm.showDetail.webChannel.name:'Unknown'}}</span>
                                 </div>
                                 <md-divider ng-if="vm.showDetail.genres"></md-divider>
                                 <div layout="row" flex ng-if="vm.showDetail.genres">
@@ -138,8 +138,8 @@
                                     aria-label="{{seasons.headerTag}}" />
                                 <img ng-if="seasons.image==''" class="md-avatar placeholder md-card-image" aria-label="{{seasons.headerTag}}" />
                             </div>
-                            <div style="text-align:center;">
-                                <span>{{seasons.headerTag}}</span>
+                            <div style="text-align:center;" ng-if="seasons.headerTag">
+                                <span>Season {{seasons.headerTag}}</span>
                             </div>
                         </div>
                     </ks-swiper-slide>
@@ -178,14 +178,14 @@
 
 
 
-        <md-card ng-if="vm.similarTvList.length>0">
+        <md-card ng-if="vm.similarTvShows.list.length>0">
             <md-card-header>
                 <md-card-header-text>
                     <span class="md-title">Similar</span>
                 </md-card-header-text>
             </md-card-header>
             <md-card-content>
-                <cinema-tv data="vm.similarTvList" events="vm.similarTvSwiper" swiper-click="vm.onSelectedTv(data);"> </cinema-tv>
+                <cinema-tv data="vm.similarTvShows" events="vm.similarTvSwiper" swiper-click="vm.onSelectedTv(data);"> </cinema-tv>
             </md-card-content>
         </md-card>
     </md-content>

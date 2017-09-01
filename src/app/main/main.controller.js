@@ -195,6 +195,8 @@
           if (success.hasOwnProperty('results')) {
             if (success.results.length > 0) {
               pageCount.upcomingStatus = true;
+              // var CurrentDate = new Date();
+              // success.results = AppFactory.eliminateWithCurrentData(success.results, CurrentDate);
               vm.upComingMovies = setterData(vm.upComingMovies, success);
             }
           }

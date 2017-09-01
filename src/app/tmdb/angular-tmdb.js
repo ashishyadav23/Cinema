@@ -157,10 +157,10 @@ angular.module('tmdb', [])
                     if (onSuccess !== undefined)
                         onSuccess(data, status, headers, config);
                 }).
-            error(function (data, status, headers, config) {
-                if (onError !== undefined)
-                    onError(data, status, headers, config);
-            });
+                error(function (data, status, headers, config) {
+                    if (onError !== undefined)
+                        onError(data, status, headers, config);
+                });
         }
 
         this.translations = function (id, params, onSuccess, onError) {
@@ -325,6 +325,23 @@ angular.module('tmdb', [])
                 if (onError !== undefined)
                     onError(data, status, headers, config);
             });
+        }
+
+        this.getArtistById = function (id, params, onSuccess, onError) {
+            var paramString = '';
+            for (var p in params) {
+                paramString = paramString + '&' + p + '=' + params[p];
+            }
+            var request = TMDB.API_URL + 'person/' + id + '?api_key=' + TMDB.API_KEY + paramString;
+            $http.get(request).
+                success(function (data, status, headers, config) {
+                    if (onSuccess !== undefined)
+                        onSuccess(data, status, headers, config);
+                }).
+                error(function (data, status, headers, config) {
+                    if (onError !== undefined)
+                        onError(data, status, headers, config);
+                });
         }
 
         this.setup = function (apiKey, useSSL) {
@@ -639,6 +656,7 @@ angular.module('tmdb', [])
                     error(function (data, status, headers, config) {
                         if (onError !== undefined)
                             onError(data, status, headers, config);
+
                     });
             },
             images: function (id, num, params, onSuccess, onError) {
@@ -659,6 +677,7 @@ angular.module('tmdb', [])
             },
             videos: function (id, num, params, onSuccess, onError) {
                 var paramString = '';
+
                 for (var p in params) {
                     paramString = paramString + '&' + p + '=' + params[p];
                 }

@@ -20,10 +20,10 @@
             console.log(scope.data);
             if ($window.screen.width <= 414) {
                 scope.slidesPerView = 3;
-                scope.shownavButton = false;
+                scope.showFullName = false;
             } else {
                 scope.slidesPerView = 6;
-                scope.shownavButton = true;
+                scope.showFullName = true;
             }
             scope.onReadySwiper = scope.events;
             scope.swiperClick = scope.swiperClick;
@@ -46,10 +46,10 @@
         function linkTv(scope, element, attr) {
             if ($window.screen.width <= 414) {
                 scope.slidesPerView = 3;
-                scope.shownavButton = false;
+                scope.showFullName = false;
             } else {
                 scope.slidesPerView = 6;
-                scope.shownavButton = true;
+                scope.showFullName = true;
             }
 
             scope.onReadySwiper = scope.events;

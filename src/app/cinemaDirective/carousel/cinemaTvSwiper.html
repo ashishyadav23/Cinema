@@ -9,15 +9,19 @@
                         class="md-avatar" aria-label="{{slide.original_name}}" />
                     <img ng-if="slide.poster_path==null || slide.poster_path=='' || slide.poster_path==undefined" class="md-card-image placeholder md-card-image"
                         aria-label="{{slide.original_name}}" />
-
                 </div>
-                <div style="text-align:center;">
-                    <!--{{slide.original_name.length < 15 ? '' : '...'}}-->
-                    <span ng-if="shownavButton==false">{{slide.original_name | limitTo:15}}{{slide.original_name.length>=15?'...':''}}</span>
-                    <span ng-if="shownavButton">{{slide.original_name }}</span>
-                </div>
-                <div style="text-align:center;">
-                    <span>{{slide.vote_average}}<i style="font-size:15px;color:#ecc361;" class="material-icons">star_rate</i></span>
+                <div layout="column">
+                    <div flex class="title-wrap">
+                        <div ng-if="showFullName == false">{{slide.original_name}}</div>
+                        <div ng-if="showFullName">{{slide.original_name }}</div>
+                    </div>
+                    <div style="text-align:center;" layout="row" flex>
+                        <div flex="45" style="text-align:end">
+                            <md-icon md-svg-src="assets/images/tmdb.svg" aria-label="label" class="snumber">:</md-icon>
+                        </div>
+                        <div flex="5">:</div>
+                        <div flex="50" style="text-align:start">{{slide.vote_average}}<i style="font-size:15px;color:#ecc361;" class="material-icons">star_rate</i></div>
+                    </div>
                 </div>
             </div>
         </ks-swiper-slide>

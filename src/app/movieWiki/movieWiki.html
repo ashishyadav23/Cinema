@@ -71,7 +71,7 @@
                                 <div layout="row" flex ng-if="vm.selectedMovie.vote_average">
                                     <span flex="30">Rating</span>
                                     <div flex="70" style="text-align:center;">
-                                        <i flex="10" style="font-size:20px; color:orange;" class="material-icons">star_rate</i>
+                                        <!--<i flex="10" style="font-size:20px; color:orange;" class="material-icons">star_rate</i>-->
                                         <span flex="60" style="text-align: center">{{vm.selectedMovie.vote_average}}/10</span>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                 </div>
                                 <div layout="row" flex>
                                     <span flex="30">Running time</span>
-                                    <span flex="70" style="text-align:center;">{{vm.movieDetails.runtime}}</span>
+                                    <span flex="70" style="text-align:center;">{{vm.timeConvert(vm.movieDetails.runtime)}}</span>
                                 </div>
                                 <md-divider></md-divider>
                                 <div layout="row" flex>

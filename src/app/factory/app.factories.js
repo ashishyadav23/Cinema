@@ -7,7 +7,8 @@
         var factory = {
             "openDrawer": openDrawer,
             "previousPage": previousPage,
-            "drawerItemClick": drawerItemClick
+            "drawerItemClick": drawerItemClick,
+            "eliminateWithCurrentData": eliminateWithCurrentData
         }
         return factory;
 
@@ -51,6 +52,16 @@
         function openPeople() {
             closeDrawer();
             $location.path('/People').replace();
+        }
+        function eliminateWithCurrentData(responseList, date) {
+            var list = [];
+            responseList.forEach(function (element) {
+                var movieDate = new Date(element.release_date);
+                if (movieDate >= date) {
+                    list.push(element);
+                }
+            }, this);
+            return list;
         }
     }
 })()

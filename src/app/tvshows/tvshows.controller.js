@@ -165,7 +165,6 @@
             request.list = request.list.concat(response.results);
             request.totalPage = response.total_pages;
             return request;
-
         }
 
         function getpopularTv() {

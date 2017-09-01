@@ -1,5 +1,3 @@
-    /*@import url(//fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);*/
-
     @font-face {
         font-family: 'Material Icons';
         font-style: normal;
@@ -162,4 +160,9 @@
     .swiper-button-prev,
     .swiper-button-next {
         top: 33% !important;
+    }
+
+    .see-all-align {
+        text-align: right;
+        margin-top: -10px;
     }

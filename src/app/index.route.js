@@ -12,7 +12,7 @@
         controller: 'MainController',
         controllerAs: 'vm'
       })
-      .when('/artist', {
+      .when('/artist/:id', {
         templateUrl: 'app/artist/artist.html',
         controller: 'ArtistController',
         controllerAs: 'vm'
