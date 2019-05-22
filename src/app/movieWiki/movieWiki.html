@@ -1,6 +1,6 @@
 <style>
     div #backgroundImage {
-        background-image:url(https://image.tmdb.org/t/p/w640/{{vm.selectedMovie.poster_path}});
+        background-image:url(https://image.tmdb.org/t/p/w300/{{vm.selectedMovie.poster_path}});
     }
     
     md-divider {
@@ -34,7 +34,7 @@
 <div layout="vertical" layout-fill>
     <div id="backgroundImage"></div>
     <md-content flex class="gradient">
-        <!--<md-card flex ng-style="{'background-image':'url(https://image.tmdb.org/t/p/w640/{{vm.selectedMovie.poster_path}})'}">-->
+        <!--<md-card flex ng-style="{'background-image':'url(https://image.tmdb.org/t/p/w300/{{vm.selectedMovie.poster_path}})'}">-->
         <md-card flex>
             <md-card-content id="video">
                 <div layout="column">
@@ -42,7 +42,7 @@
                         <div class="video-container" ng-if="vm.videoUrl!=''">
                             <iframe src="{{vm.videoUrl}}" frameborder="0" allowfullscreen></iframe>
                         </div>
-                        <img ng-if="vm.videoUrl==''" style="width:100%;height:200px;" class="md-card-image" ng-src="https://image.tmdb.org/t/p/w640/{{vm.selectedMovie.poster_path}}"
+                        <img ng-if="vm.videoUrl==''" style="width:100%;height:200px;" class="md-card-image" ng-src="https://image.tmdb.org/t/p/w300/{{vm.selectedMovie.poster_path}}"
                             class="md-avatar" aria-label="{{vm.selectedMovie.original_title}}" alt="{{vm.selectedMovie.original_title}}"
                         />
                         <img ng-if="vm.videoUrl==''&& vm.selectedMovie.poster_path=='null' || vm.selectedMovie.poster_path=='' || vm.selectedMovie.poster_path=='undefined' "
@@ -118,7 +118,7 @@
                     <ks-swiper-slide class="swiper-slide" ng-repeat="cast in vm.castList" ng-click="vm.openArtistWiki(cast)">
                         <div layout="column">
                             <div>
-                                <img style="width:100%;height:200px;" class="md-card-image" ng-src="https://image.tmdb.org/t/p/w640/{{cast.profile_path}}"
+                                <img style="width:100%;height:200px;" class="md-card-image" ng-src="https://image.tmdb.org/t/p/w300/{{cast.profile_path}}"
                                     class="md-avatar" aria-label="{{cast.original_title}}" alt="{{cast.original_title}}" />
                             </div>
                             <div style="text-align:center;">
